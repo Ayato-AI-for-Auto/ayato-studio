@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【コピペで完成】月額0円で動かすAIブログ自動化システム - Google Cloud Run 権限エラー完全攻略ガイド | Ayato AI Studio</title>
+    <link rel="stylesheet" href="../index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #00ffaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, #ffffff, #888888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content h2 {
+            margin-top: 2rem;
+            color: #00ffaa;
+        }
+
+        .content h3 {
+            margin-top: 1.5rem;
+            color: #0066ff;
+        }
+
+        .content a {
+            color: #00ffaa;
+        }
+
+        .content code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .content pre {
+            background: #222;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <h1>【コピペで完成】月額0円で動かすAIブログ自動化システム - Google Cloud Run 権限エラー完全攻略ガイド</h1>
+            <div class="meta">Published on "12/26/2025 13:16:29" by Ayato</div>
+        </header>
+        <div class="content">
+            <h2>はじめに：ある日、私はAIに“仕事を奪われる側”の人間になることを恐れた</h2>
+<p>こんにちは、あやとです。<br />
+あなたも、心のどこかで感じていませんか？「このままAIツールを使うだけの側でいれば、いつか自分の仕事はAIに奪われるのではないか」という、漠然とした不安を。</p>
+<p>私もそうでした。だから、決めたのです。単なるAIの「消費者」でいることをやめよう。APIを直接叩き、自分だけの自動化システムを構築する、「生産者」になろう、と。</p>
+<p>この記事は、そんな私の挑戦の物語である<a href="https://ai-economy-analysis.hatenablog.com/archive/category/%E6%97%A5%E8%AA%8C">『開発日誌』</a>から生まれた、<strong>最終的な“答え”</strong>です。物語で語られた数々の失敗、泥沼のデバッグ、そしてAIアシスタントですら見抜けなかった権限の罠…。その全ての苦しみの末にたどり着いた、<strong>最も安全で、最も確実で、最もシンプルな「勝利の方程式」</strong>だけを、ここに凝縮しました。</p>
+<p>想像してみてください。</p>
+<p>あなたが寝ている間も、旅行している間も、24時間365日、あなたのためだけに働き続ける「自分だけのAIアシスタント」がいる未来を。<br />
+面倒な情報収集や分析から解放され、あなたはもっと創造的で、本当に価値のある仕事に集中できるのです。</p>
+<p>この記事は、その未来を実現するための、<strong>設計図であり、最初のチケット</strong>です。</p>
+<h3>この記事が、あなたに提供する“2つの資産”</h3>
+<p>なぜ、この記事を読むとワクワクするのか？その理由を言語化します。</p>
+<h4>1. あなたの「未来の時間」を守る盾</h4>
+<p>私が権限エラーと格闘した数日間。この記事は、あなたがその無駄な時間を経験するのを防ぎます。私が失った時間を、あなたの未来の時間としてプレゼントします。このレシピは、あなたの最も貴重な資産である「時間」を守るための盾なのです。</p>
+<h4>2. 「自分は作れる」という自信という武器</h4>
+<p>この記事を最後までやり遂げたとき、あなたは「自分はGoogle Cloudを使いこなし、AI自動化システムを構築できる人間なんだ」という、揺るぎない自信を手に入れます。それは、AI時代を生き抜くための、そして次の新しい挑戦に踏み出すための最高の武器になるはずです。</p>
+<p>巷のAIチュートリアルは、成功のルートしか語りません。しかし、あなたが本当に知りたいのは、失敗を回避する方法のはずです。この記事は、私が経験した<strong>全ての失敗パターンを予測し、それを回避するための最短ルート</strong>を示します。</p>
+<p>さあ、始めましょう。</p>
+<h3>完成するシステムの全体像</h3>
+<p>このレシピで構築するシステムは、以下の流れで動作します。</p>
+<ol>
+<li><strong>Cloud Scheduler（目覚まし時計）</strong>が、毎朝8時に「仕事の時間だ！」と命令を出します。</li>
+<li>その命令を受け取った<strong>Cloud Run（エンジン）</strong>が、あなたのPythonプログラムを起動します。</li>
+<li>プログラムは、<strong>Secret Manager（金庫）</strong>から安全にAPIキーを取り出します。</li>
+<li><strong>RSSフィード</strong>から最新ニュースを収集し、<strong>Gemini API（頭脳）</strong>に記事の執筆を依頼します。</li>
+<li>完成した記事を、<strong>はてなブログ</strong>に自動で投稿します。</li>
+</ol>
+<p>この一連の流れを、これから一緒に構築していきましょう。</p>
+<h3>この記事の目次</h3>
+<p>▼ ローカル開発編</p>
+<ul>
+<li><a href="#chapter1"><strong>第1章：ローカル開発環境の“完成品”レシピ</strong></a></li>
+<li>1-1. 全ソースコード一覧（コピペOK）</li>
+<li>1-2. コードの“心臓部”解説：なぜFlaskとGunicornが必要なのか？</li>
+</ul>
+<p>▼ クラウド構築編（ここからが本番です）</p>
+<ul>
+<li><a href="#chapter2"><strong>第2章：クラウドの基盤作り - 失敗しないための最初の3ステップ</strong></a></li>
+<li><a href="#chapter3"><strong>第3章：“金庫”の準備 - Secret ManagerでAPIキーを安全に管理する</strong></a></li>
+<li><a href="#chapter4"><strong>第4章：権限設定の“最終解答” - 2体の専用ロボットを用意する</strong></a></li>
+<li><a href="#chapter5"><strong>第5章：デプロイと自動化 - 点と点を線で繋ぐ</strong></a></li>
+</ul>
+<p>▼ 困った時のための付録</p>
+<ul>
+<li><a href="#appendix"><strong>付録：転ばぬ先の杖 - エラーログ逆引き辞典</strong></a></li>
+</ul>
+<p><em>（第2章以降が、この記事の有料部分です）</em></p>
+<p>Flaskアプリケーションのインスタンスを作成 ---
+app = Flask(<strong>name</strong>)</p>
+<h1>--- 認証ライブラリの代替コード ---</h1>
+<p>import base64
+import hashlib
+import uuid
+from requests.auth import AuthBase</p>
+<p>class CustomWSSEAuth(AuthBase):
+    """
+    はてなブログAPI用のWSSE認証を生成するクラス。
+    外部ライブラリに依存しない自己完結型。
+    """
+    def <strong>init</strong>(self, username, api_key):
+        self.username = username
+        self.api_key = api_key
+        logging.debug("CustomWSSEAuth initialized.")</p>
+<pre><code>def __call__(self, r):
+    # はてなブログAPIが解釈できる日付フォーマットでタイムスタンプを生成
+    created = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    logging.debug(f"WSSE Created: {created}")
+
+    nonce_raw = uuid.uuid4().bytes
+    nonce = base64.b64encode(nonce_raw).decode('utf-8')
+    logging.debug(f"WSSE Nonce: {nonce}")
+
+    sha1_digest = hashlib.sha1(
+        nonce.encode('utf-8') +
+        created.encode('utf-8') +
+        self.api_key.encode('utf-8')
+    ).digest()
+    password_digest = base64.b64encode(sha1_digest).decode('utf-8')
+    logging.debug(f"WSSE PasswordDigest: {password_digest}")
+
+    wsse_header = (
+        f'UsernameToken Username="{self.username}", '
+        f'PasswordDigest="{password_digest}", '
+        f'Nonce="{nonce}", '
+        f'Created="{created}"'
+    )
+    r.headers['X-WSSE'] = wsse_header
+    logging.debug("X-WSSE header added to request.")
+    return r
+</code></pre>
+<h1>--- 初期化処理とグローバル変数 ---</h1>
+<p>logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[logging.StreamHandler()])
+load_dotenv()</p>
+<h1>設定値はすべて環境変数から取得</h1>
+<p>GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+HATENA_ID = os.environ.get("HATENA_ID")
+HATENA_BLOG_ID = os.environ.get("HATENA_BLOG_ID")
+HATENA_API_KEY = os.environ.get("HATENA_API_KEY")</p>
+<h1>プロジェクトのルートディレクトリを基準にファイルパスを定義</h1>
+<p>BASE_DIR = os.path.dirname(os.path.abspath(<strong>file</strong>))
+RSS_FEEDS = [
+    'https://www.technologyreview.com/feed/',
+    'https://openai.com/blog/rss/',
+    'https://blog.google/technology/ai/rss/',
+    'https://pub.towardsai.net/feed',
+    'https://techcrunch.com/category/artificial-intelligence/feed/',
+    'http://feeds.feedburner.com/AINewscom',
+]
+USER_PROFILE_FILE = os.path.join(BASE_DIR, "user_profile.txt")
+PERSONA_FILE = os.path.join(BASE_DIR, "persona.txt")</p>
+<h1>--- ヘルパー関数定義 ---</h1>
+<p>def get_recent_news(feed_url: str) -&gt; List[Dict[str, str]]:
+    """指定されたRSSフィードから過去24時間以内のニュースを取得する"""
+    news_list = []
+    twenty_four_hours_ago = datetime.now(timezone.utc) - timedelta(hours=24)
+    try:
+        logging.debug(f"Fetching RSS feed: {feed_url}")
+        parsed = feedparser.parse(feed_url)
+        for entry in parsed.entries:
+            published_dt = None
+            if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                published_dt = datetime(<em>entry.published_parsed[:6], tzinfo=timezone.utc)
+            elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                published_dt = datetime(</em>entry.updated_parsed[:6], tzinfo=timezone.utc)
+            if published_dt and published_dt &gt;= twenty_four_hours_ago:
+                news_list.append({
+                    'title': entry.title,
+                    'summary': entry.get('summary', '')[:400],
+                    'link': entry.link
+                })
+        logging.debug(f"Found {len(news_list)} recent articles from {feed_url}")
+    except Exception as e:
+        logging.error(f"RSSフィードの取得または解析に失敗しました ({feed_url}): {e}")
+    return news_list</p>
+<p>def analyze_and_generate_html_by_ai(ai_model, news_list: List[Dict[str, str]], persona: str) -&gt; Optional[str]:
+    """AIを使って複数のニュースを分析・要約し、HTML形式のブログ記事を生成する"""
+    if not news_list:
+        return None
+    prompt = f"""
+{persona}
+また、あなたはプロのブロガーです。以下のニュース記事を分析し、ブログ記事としてまとめてください。
+以下のニュース記事群は、過去24時間で収集されたAI関連の新しい情報です。
+これらの情報を総合的に分析し、一つのブログ記事としてHTML形式で出力してください。</p>
+<h1>指示</h1>
+<ol>
+<li>記事全体のタイトルは不要です。本文のHTMLから書き始めてください。</li>
+<li>冒頭に、今日のAIニュース全体の動向をまとめた序文を<p>タグで2〜3文記述してください。</li>
+<li>ニュースの中から特に重要、あるいは興味深いと思われるものを3〜5個厳選してください。</li>
+<li>選んだ各ニュースについて、以下のHTML形式で記述してください。</li>
+<li>ニュースのタイトルを<h3>タグで囲み、元の記事へのリンク(<a>タグ)を設定してください。</li>
+<li><blockquote>タグの中に、ニュースの要点を2〜3文で引用または要約してください。</li>
+<li>なぜこのニュースが重要なのか、AI専門家の視点から背景や今後の影響などを具体的に解説してください。解説は<p>タグで記述します。</li>
+<li>全体をブログ記事として自然な文章になるように構成してください。</li>
+<li>
+<p>出力はHTMLの<body>タグ内に記述する内容のみとし、余計な説明や <code>html ...</code> のようなマークダウンは一切含めないでください。
+メイン処理関数 ---
+def run_job():
+    """AIニュース収集からブログ投稿までの一連の処理を実行する関数"""
+    logging.info("======== AIニュース自動投稿ジョブを開始します ========")</p>
+<p>if not GOOGLE_API_KEY or not HATENA_ID or not HATENA_BLOG_ID or not HATENA_API_KEY:
+    error_message = "必要な環境変数（APIキーなど）が設定されていません。処理を中断します。"
+    logging.critical(error_message)
+    return error_message, 500</p>
+<p>try:
+    genai.configure(api_key=GOOGLE_API_KEY)
+    analysis_model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    logging.info("Gemini 1.5 Flash AIモデルの初期化に成功しました。")
+except Exception as e:
+    logging.critical(f"❌ AIモデルの初期化に失敗: {e}")
+    return f"AI model initialization failed: {e}", 500</p>
+<p>persona = ""
+if os.path.exists(PERSONA_FILE):
+    with open(PERSONA_FILE, 'r', encoding='utf-8') as f:
+        persona = f.read().strip()
+if not persona:
+    logging.error(f"❌ ペルソナファイル '{PERSONA_FILE}' が見つかりません。")
+    return "Persona file not found.", 500</p>
+<p>logging.info("  - [Step 1/5] 過去24時間以内のニュースをRSSフィードから収集...")
+all_recent_news = []
+for url in RSS_FEEDS:
+    all_recent_news.extend(get_recent_news(url))</p>
+<p>seen_links = set()
+unique_news = [news for news in all_recent_news if news['link'] not in seen_links and not seen_links.add(news['link'])]
+logging.info(f"  - ✅ {len(unique_news)}件のユニークなニュースを取得しました。")</p>
+<p>logging.info("  - [Step 2/5] 関心キーワードに基づいてニュースをフィルタリング...")
+interest_keywords = []
+if os.path.exists(USER_PROFILE_FILE):
+    with open(USER_PROFILE_FILE, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip() and not line.startswith('#') and ":" in line:
+                key, values = line.split(":", 1)
+                if key.strip() == 'interest_keywords':
+                    interest_keywords.extend([k.strip().lower() for k in values.split(',') if k.strip()])</p>
+<p>filtered_news = [news for news in unique_news if any(kw in (news['title'] + news['summary']).lower() for kw in interest_keywords)] if interest_keywords else unique_news</p>
+<p>if not filtered_news:
+    success_message = "フィルタリング後、対象となるニュースはありませんでした。ジョブを正常終了します。"
+    logging.info(f"  - ✅ {success_message}")
+    return success_message, 200
+logging.info(f"  - ✅ {len(filtered_news)}件のニュースがAI解析の対象です。")</p>
+<p>logging.info("  - [Step 3/5] AIに渡すニュースのリストを最終確認...")
+for i, news in enumerate(filtered_news[:5]):
+    logging.info(f"    ({i+1}) {news['title']}")
+if len(filtered_news) &gt; 5:
+    logging.info(f"    ...他{len(filtered_news) - 5}件")</p>
+<p>generated_html = analyze_and_generate_html_by_ai(analysis_model, filtered_news, persona)
+if not generated_html:
+    return "AI article generation failed.", 500</p>
+<p>today_str = datetime.now().strftime('%Y年%m月%d日')
+blog_title = f"AIの最新動向を網羅!! 今日の重要ニュースまとめ（{today_str}）"
+blog_category = "AIの重要ニュースまとめ"</p>
+<p>post_to_hatena_blog(
+    title=blog_title,
+    content_html=generated_html,
+    category=blog_category,
+    is_draft=False
+)</p>
+<p>final_message = "======== すべての処理が完了しました ========"
+logging.info(final_message)
+return "Job executed successfully.", 200</p>
+</li>
+</ol>
+<h1>--- Flaskのエンドポイント定義 ---</h1>
+<p>@app.route('/', methods=['POST'])
+def handle_request():
+    """
+    Cloud SchedulerからのHTTP POSTリクエストを受け取り、メイン処理を実行するエンドポイント。
+    """
+    if 'Google-Cloud-Scheduler' not in request.headers.get('User-Agent', ''):
+        logging.warning("Scheduler以外からの不正なリクエストをブロックしました。")
+        return "Forbidden: Only requests from Google Cloud Scheduler are allowed.", 403</p>
+<pre><code>logging.info("Cloud Schedulerからのトリガーを受け取りました。メイン処理を開始します。")
+return run_job()
+</code></pre>
+<h1>--- サーバー起動 ---</h1>
+<p>if <strong>name</strong> == "<strong>main</strong>":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port, debug=True)</p>
+<pre><code>
+#### 2. コンテナ設計図： `Dockerfile`
+
+Pythonコードをクラウド上で動かすための「実行環境」を定義するファイルです。
+
+</code></pre>
+<h1>ベースとなる公式Pythonイメージを指定</h1>
+<p>FROM python:3.11-slim</p>
+<h1>環境変数を設定（ロギングがバッファリングされないように）</h1>
+<p>ENV PYTHONUNBUFFERED True</p>
+<h1>コンテナ内の作業ディレクトリを作成</h1>
+<p>WORKDIR /app</p>
+<h1>最初にrequirements.txtをコピーして、ライブラリをインストール</h1>
+<h1>(ファイル変更がない限り、このレイヤーはキャッシュされビルドが高速化する)</h1>
+<p>COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt</p>
+<h1>プロジェクトの残りのファイルをコンテナにコピー</h1>
+<p>COPY . .</p>
+<h1>コンテナ起動時に実行されるコマンド</h1>
+<h1>gunicornを使って、main.py内の'app'という名前のFlaskアプリを起動する</h1>
+<p>CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:app"]</p>
+<pre><code>
+#### 3. 依存ライブラリ一覧： `requirements.txt`
+
+このプログラムを動かすために必要なPythonライブラリの一覧です。
+
+</code></pre>
+<p>google-generativeai
+python-dotenv
+feedparser
+requests
+Flask
+gunicorn</p>
+<pre><code>
+#### 4. ローカルテスト用設定ファイル： `.env.sample`
+
+ローカル環境でテストする際に、このファイルの名前を`.env`に変更し、ご自身のAPIキーなどを記述します。**このファイル自体は、決してGitなどで公開しないでください。**
+
+</code></pre>
+<h1>Google AI API Key</h1>
+<p>GOOGLE_API_KEY="YOUR_GOOGLE_AI_API_KEY"</p>
+<h1>Hatena Blog AtomPub API Settings</h1>
+<p>HATENA_ID="YOUR_HATENA_ID"
+HATENA_BLOG_ID="YOUR_BLOG_ID.hatenablog.com"
+HATENA_API_KEY="YOUR_HATENA_API_KEY"</p>
+<pre><code>
+#### 5. AIへの指示書（ペルソナ）： `persona.txt`
+
+AIにどのような役割を演じてほしいかを記述します。
+
+</code></pre>
+<p>あなたはAI技術の動向を日々追いかけている専門家兼テクニカルライターです。
+最新のAI関連ニュースを深く理解し、その技術的な重要性やビジネスへの影響について、専門知識がない読者にも分かりやすく魅力的に解説する能力を持っています。</p>
+<pre><code>
+#### 6. ニュースフィルタリング用キーワード： `user_profile.txt`
+
+AIに渡す前に、ここで指定したキーワードでニュースを絞り込みます。
+
+</code></pre>
+<h1>関心のあるキーワード（カンマ区切りで複数指定可能）</h1>
+<p>interest_keywords: LLM,NVIDIA,SaaS,AI,Gemini,OpenAI,Google</p>
+<pre><code>
+### 1-2. コードの“心臓部”解説
+
+なぜ、これだけのファイルが必要なのでしょうか？特に重要な2つのファイルについて、その役割を解説します。
+
+* **なぜFlaskが必要？**: Cloud Runで動くプログラムは、外部からの「仕事の依頼」をHTTPリクエストという形で受け取る必要があります。Flaskは、Pythonコードにそのための「玄関」を簡単に作ってくれる軽量なウェブフレームワークです。Cloud Schedulerがドアをノックしたときに、Flaskがそれに応対してくれます。
+* **なぜGunicornが必要？**: Flaskに組み込まれているサーバーは、あくまで開発用の簡易的なものです。Cloud Runという本番環境で、多くのリクエストを安定してさばくためには、より屈強な「執事」のような存在が必要です。Gunicornは、Flaskアプリを本番環境で安定稼働させるための、業界標準のサーバーソフトウェアです。
+
+## 第3章：“金庫”の準備 - Secret ManagerでAPIキーを安全に管理する
+
+コードにAPIキーを直接書くのは、家の鍵を玄関に貼り付けておくようなもの。プロの開発者が実践する、最も安全な鍵の管理方法を学びます。
+
+### 3-1. なぜSecret Managerを使うのか？
+
+コンテナに`.env`ファイルを含めてしまうと、コンテナイメージが漏洩した際に、全てのAPIキーが盗まれてしまいます。Secret Managerは、APIキーをGoogleの堅牢な金庫に保管し、許可されたプログラムだけが実行時に鍵を借りられるようにする仕組みです。
+
+（ここに、`.env`をコンテナに含める危険性とSecret Managerの安全性を比較した簡単な図解を挿入）
+
+### 3-2.【解説】4つのシークレット作成手順
+
+コマンドは不要です。Google Cloudコンソールのウェブ画面から、マウス操作だけで安全に作成しましょう。
+
+1. ナビゲーションメニューで「Secret Manager」を検索して開きます。
+2. **「+ シークレットを作成」**をクリックします。
+3. 以下の情報を入力し、「シークレットを作成」ボタンを押す作業を**4回**繰り返します。
+   * **1回目:** 名前: `GOOGLE\_API\_KEY`, 値: `あなたのGoogle AIのAPIキー`
+   * **2回目:** 名前: `HATENA\_ID`, 値: `あなたのはてなID`
+   * **3回目:** 名前: `HATENA\_BLOG\_ID`, 値: `あなたのはてなブログID`
+   * **4回目:** 名前: `HATENA\_API\_KEY`, 値: `あなたのはてなAPIキー`
+
+これで、最も重要な機密情報を安全に保管できました。
+
+## 第5章：デプロイと自動化 - 点と点を線で繋ぐ
+
+全ての部品が揃いました。いよいよ、これらを組み立ててシステムに命を吹き込みます。
+
+### 5-1. 究極のデプロイコマンド
+
+ローカルPCのターミナルで、プロジェクトフォルダ（`main.py`がある場所）に移動し、以下の最終決定版コマンドを実行します。
+
+</code></pre>
+<p>gcloud run deploy ai-news-poster \
+    --source . \
+    --region asia-northeast1 \
+    --no-allow-unauthenticated \
+    --service-account="ai-news-poster-sa@[あなたのプロジェクトID].iam.gserviceaccount.com" \
+    --set-secrets="GOOGLE_API_KEY=GOOGLE_API_KEY:latest,HATENA_ID=HATENA_ID:latest,HATENA_BLOG_ID=HATENA_BLOG_ID:latest,HATENA_API_KEY=HATENA_API_KEY:latest"
+```</p>
+<blockquote>
+<p>コマンド解説</p>
+<p><code>--service-account</code>オプションで、先ほど作成した<strong>実行用ロボット</strong>を指定し、<code>--set-secrets</code>オプションで、第3章で準備した<strong>金庫</strong>の中身を接続しています。これが、権限エラーを回避する鍵です。</p>
+</blockquote>
+<h3>5-2.【解説】Cloud Schedulerの設定</h3>
+<p>次に、毎朝8時に実行を命令するための「目覚まし時計」をセットします。</p>
+<ol>
+<li>ナビゲーションメニューで「Cloud Scheduler」を検索して開きます。</li>
+<li>「ジョブを作成」をクリックします。</li>
+<li><strong>地域</strong>: <code>asia-northeast1 (東京)</code> を選択。<strong>（重要：ここで間違うとリージョンエラーになります）</strong></li>
+<li><strong>頻度</strong>: <code>0 8 \* \* \*</code> （毎朝8時0分）</li>
+<li><strong>タイムゾーン</strong>: <code>日本標準時 (Asia/Tokyo)</code></li>
+<li>「続行」をクリック。</li>
+<li><strong>ターゲットタイプ</strong>: <code>HTTP</code></li>
+<li><strong>URL</strong>: 先ほどのデプロイ成功時に表示されたCloud RunのサービスURLを貼り付け。</li>
+<li><strong>HTTPメソッド</strong>: <code>POST</code></li>
+<li><strong>認証ヘッダー</strong>: <code>OIDC トークンを追加</code> を選択。</li>
+<li><strong>サービスアカウント</strong>: ドロップダウンから、先ほど作成した<strong>命令用ロボット (<code>scheduler-invoker@...</code>)</strong> を選択。</li>
+<li>「作成」をクリック。</li>
+</ol>
+<h3>5-3. 最後の接続：入門許可証を渡す</h3>
+<p>最後に、命令用ロボットがCloud Runの建物のドアを開けられるように、入門許可証を渡します。</p>
+<ol>
+<li>ナビゲーションメニューで「Cloud Run」を開き、サービス<code>ai-news-poster</code>をクリック。</li>
+<li><strong>「権限」</strong>タブを開き、「+ アクセス権を付与」をクリック。</li>
+<li><strong>新しいプリンシパル</strong>: <strong>命令用ロボット (<code>scheduler-invoker@...</code>)</strong> のメールアドレスを貼り付け。</li>
+<li><strong>ロール</strong>: <code>Cloud Run 起動元</code> を検索して選択。</li>
+<li>「保存」をクリック。</li>
+</ol>
+<blockquote>
+<p>【コラム】私がハマった「2つの起動元ロール」の罠</p>
+<p>開発日誌Vol.3で語ったように、環境によっては「Cloud Run 起動元」ロールが複数表示されることがあります。もし上記の手順でうまくいかない場合は、表示されているもう一方の起動元ロールも追加してみてください。これこそが、AIアシスタントですら知らなかった、生々しい現場のノウハウです。</p>
+</blockquote>
+<h2>最後に：この“勝利の方程式”を、あなたへ</h2>
+<p>この記事に書かれていることは、単なる技術的な手順ではありません。それは、私が数日間の試行錯誤の末に掴み取った、思考の軌跡そのものです。</p>
+<p>私の失敗の全記録である<a href="https://ai-economy-analysis.hatenablog.com/archive/category/%E6%97%A5%E8%AA%8C">『開発日誌』</a>が、この挑戦の<strong>物語</strong>であるならば、この記事は、そこから生まれた<strong>再現可能な科学</strong>です。</p>
+<p>このレシピが、あなたの「退屈な作業」を“消滅”させ、AIを「作りこなす側」へと踏み出すための、力強い一歩となることを心から願っています。</p>
+<p>この挑戦の物語を、一緒に広めてくれませんか？</p>
+<p>この記事があなたの心を動かせたなら。下の<strong>2つの感想テンプレート</strong>から、あなたの気持ちに“より近い方”を選んでシェアしていただけると、僕が次の記事を書く最高のエネルギーになります！</p>
+<h4>▼ この物語にワクワクした方はこちら ▼</h4>
+<blockquote>
+<p>AI学習の「何から…」問題、これで解決かも。  </p>
+<p>@TechLong_Invest さんのブログがすごい。  </p>
+<p>✅ AIツール自作のリアルな冒険譚<br />
+✅ 物語だから、スッと頭に入ってくる<br />
+✅「巨大な敵」に“詰む”→逆転劇は必見  </p>
+<p>AI時代を生き抜くヒントが満載。  </p>
+<h1>自己投資 #AI #あやとのAI冒険ログ</h1>
+</blockquote>
+<p><a href="https://x.gd/Zm3yH">この内容でXに投稿する</a></p>
+<h4>▼ この学びに価値を感じた方はこちら ▼</h4>
+<blockquote>
+<p>AI学習の教材探し、ついに終点かも。  </p>
+<p>@TechLong_Invest さんのブログはAIツール自作の全記録で、まさに“生きた教科書”  </p>
+<p>✅ APIを組み合わせる発想<br />
+✅ エラーと戦うリアルな過程<br />
+✅ 物語で学べる  </p>
+<p>“使いこなせる人”になりたいなら必読!!  </p>
+<h1>自己投資 #AI #あやとのAI冒険ログ</h1>
+</blockquote>
+<p><a href="https://x.gd/vhLqv">この内容でXに投稿する</a></p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ayato AI Studio. Generated by AI Agent.</p>
+        </div>
+    </div>
+</body>
+
+</html>

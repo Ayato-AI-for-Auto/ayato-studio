@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【Windows11】WSLのクリーンインストール＆セットアップ完全ガイド | Ayato AI Studio</title>
+    <link rel="stylesheet" href="../index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #00ffaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, #ffffff, #888888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content h2 {
+            margin-top: 2rem;
+            color: #00ffaa;
+        }
+
+        .content h3 {
+            margin-top: 1.5rem;
+            color: #0066ff;
+        }
+
+        .content a {
+            color: #00ffaa;
+        }
+
+        .content code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .content pre {
+            background: #222;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <h1>【Windows11】WSLのクリーンインストール＆セットアップ完全ガイド</h1>
+            <div class="meta">Published on "12/26/2025 13:07:47" by Ayato</div>
+        </header>
+        <div class="content">
+            <h1>【Windows11】WSLのクリーンインストール＆セットアップ完全ガイド</h1>
+<p>設定が分からなくなったWSLを、エラー対処法も含めて完全にリセット＆再構築！</p>
+<p>「WSLのセットアップを色々試しているうちに、何がどうなっているのか分からなくなってしまった…」そんな経験はありませんか？この記事では、Windows 11上のWSLを完全にクリーンな状態に戻し、最新の推奨手順で再インストールする方法を、発生しがちなエラーの対処法まで含めて網羅的に解説します。</p>
+<h2>ステップ1：WSL環境のクリーンアップ</h2>
+<h3>【超重要】コマンドを実行する場所について</h3>
+<p>この記事で紹介する<code>wsl</code>コマンドは、<strong>必ずWindowsの「PowerShell」を管理者として実行してください。</strong>Linuxのターミナル内では「command not found」エラーになります。</p>
+<h3>【重要】データのバックアップを忘れずに！</h3>
+<p>以下の操作を行うと、WSL内のデータが完全に削除されます。必要なファイルは、事前にWindows側にコピーしておきましょう。（エクスプローラーで <code>\\wsl$</code> にアクセスすると簡単です）</p>
+<h3>1. 現状の確認 (PowerShellで実行)</h3>
+<pre><code>wsl --list --verbose
+</code></pre>
+<p>コピー</p>
+<h3>コマンドの選択：<code>--uninstall</code> vs <code>--unregister</code></h3>
+<p>目的に合わせてコマンドを選んでください。</p>
+<ul>
+<li><strong><code>wsl --unregister &lt;ディストリビューション名&gt;</code></strong>: 特定のLinux環境だけリセットしたい場合。</li>
+<li><strong><code>wsl --uninstall</code></strong>: WSLごと全てを完全に初期化したい場合。<strong>（本ガイドで推奨）</strong></li>
+</ul>
+<h3>2. WSLの完全アンインストール (PowerShellで実行)</h3>
+<pre><code>wsl --uninstall
+</code></pre>
+<p>コピー</p>
+<p>処理後、PCの再起動を求められたら必ず従ってください。</p>
+<h2>ステップ2：WSL 2の新規インストールと初期セットアップ</h2>
+<h3>これからの標準「WSL 2」について</h3>
+<p>これから実行する <code>wsl --install</code> コマンドは、現在の主流である <strong>WSL 2</strong> を自動でインストールします。</p>
+<p>旧バージョンのWSL 1がWindowsとLinuxのコマンドを「翻訳」して動作していたのに対し、WSL 2は軽量な仮想マシン内で<strong>本物のLinuxカーネルを直接実行します。</strong>これにより、以下のような大きなメリットがあります。</p>
+<ul>
+<li><strong>完全な互換性:</strong> Dockerなど、Linuxカーネル機能をフルに要求するアプリケーションが問題なく動作します。</li>
+<li><strong>高速なファイルI/O:</strong> Linuxファイルシステム内でのファイルの読み書きが劇的に高速化されます。</li>
+</ul>
+<h3>1. WSLのインストール (PowerShellで実行)</h3>
+<p>「PowerShell」を<strong>管理者として実行</strong>し、以下のコマンドを一行入力するだけです。</p>
+<pre><code>wsl --install
+</code></pre>
+<p>コピー</p>
+<p>PCを再起動し、セットアップが自動的に続行されるのを待ちます。</p>
+<h3>2. Linuxユーザーのセットアップ</h3>
+<p>再起動後、Ubuntuのターミナルが自動的に開きます。Linux環境で使用する<strong>ユーザー名</strong>と<strong>パスワード</strong>を入力してください。（Windowsのものとは別です）</p>
+<h3>3. （推奨）パッケージを最新の状態に更新する</h3>
+<p>システムの安定性を最優先する場合、この手順はスキップしても構いません。セキュリティ修正などを適用したい場合は、以下のコマンドを実行してください。</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt upgrade -y
+</code></pre>
+<p>コピー</p>
+<h2>ステップEX：よくあるエラーと対処法</h2>
+<p>インストール中に問題が発生した場合、慌てずに以下を確認してみてください。</p>
+<h3>エラー1: 「仮想化を有効にしてください」 (エラーコード: 0x80370102 など)</h3>
+<p>WSL 2は仮想化技術を利用するため、お使いのPCでこの機能が有効になっている必要があります。</p>
+<ul>
+<li><strong>対処法 A (Windowsの機能):</strong> まず、必要なWindowsの機能が有効か確認します。PowerShell(管理者)で以下のコマンドを実行してください。</li>
+</ul>
+<p><code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></p>
+<p>コピー
+* <strong>対処法 B (BIOS/UEFIの設定):</strong> 上記で解決しない場合、PC本体のBIOS/UEFI設定で仮想化支援機能が無効になっている可能性があります。</p>
+<p>#### BIOS/UEFIの操作に関する注意</p>
+<p>BIOS/UEFIの設定変更はPCの動作に影響を与える可能性があります。慎重に操作してください。</p>
+<ol>
+<li>PCを再起動し、起動画面で <code>F2</code>, <code>F10</code>, <code>Delete</code> などのキーを連打してBIOS/UEFI設定画面に入ります。（キーはPCメーカーにより異なります）</li>
+<li>「CPU設定」や「詳細設定」などのメニューから、「Intel(R) Virtualization Technology (VT-x)」や「AMD-V」といった項目を探し、<code>Enabled</code> (有効) に設定します。</li>
+<li>設定を保存 (Save and Exit) して再起動します。</li>
+</ol>
+<h3>エラー2: ダウンロードやインストールが進まない</h3>
+<p>ネットワークの問題や、他のソフトウェアが干渉している可能性があります。</p>
+<ul>
+<li><strong>対処法:</strong></li>
+<li>インターネット接続が安定していることを確認する。</li>
+<li>VPNやプロキシ、セキュリティソフトを一時的に無効にしてみる。</li>
+<li>PCを再起動して、もう一度 <code>wsl --install</code> コマンドを試す。</li>
+</ul>
+<h2>ステップ3：おすすめの次の一歩</h2>
+<p>お疲れ様でした！クリーンで最新のWSL 2環境が構築されました。最後に、開発体験をさらに向上させるためのおすすめ設定をご紹介します。</p>
+<h3>Windows Terminal を活用しよう</h3>
+<p>Microsoft公式の「<strong>Windows Terminal</strong>」は、タブ機能でPowerShellや複数のLinux環境をシームレスに切り替えられ、開発効率が飛躍的に向上します。Microsoft Storeから無料でインストールできます。</p>
+<h3>Visual Studio Code と連携しよう</h3>
+<p>VS Codeに「<strong>WSL</strong>」拡張機能をインストールするだけで、Windows側のVS CodeからWSL内のファイルを直接編集・デバッグできるようになります。WSLのターミナルでプロジェクトフォルダに移動し、<code>code .</code>と入力するだけで連携が開始されます。</p>
+<h2>まとめ</h2>
+<p>本記事では、WSL環境を一度リセットし、クリーンな状態から再インストールする手順を、エラー対処法まで含めて解説しました。これで、過去の設定に悩まされることなく、安心して開発に集中できるはずです。快適なWSL 2ライフをお楽しみください！</p>
+<p>[<img alt="" src="https://cdn.image.st-hatena.com/image/square/adad63b72f1d6545b2ba2538c3fc2923b2fd5989/backend=imagemagick;height=80;version=1;width=80/https%3A%2F%2Fcdn.blog.st-hatena.com%2Fimages%2Fcircle%2Fofficial-circle-icon%2Fcomputers.gif" /></p>
+<p>ランキング参加中</p>
+<p>プログラミング](https://blog.hatena.ne.jp/-/group/11696248318754550880/redirect)</p>
+<p>[<img alt="" src="https://cdn.image.st-hatena.com/image/square/adad63b72f1d6545b2ba2538c3fc2923b2fd5989/backend=imagemagick;height=80;version=1;width=80/https%3A%2F%2Fcdn.blog.st-hatena.com%2Fimages%2Fcircle%2Fofficial-circle-icon%2Fcomputers.gif" /></p>
+<p>ランキング参加中</p>
+<p>テクノロジー](https://blog.hatena.ne.jp/-/group/11696248318754550877/redirect)</p>
+<p>[<img alt="" src="https://cdn.image.st-hatena.com/image/square/923c61f1fa380959d1afc414cfe38b14cc5f9c65/backend=imagemagick;height=80;version=1;width=80/https%3A%2F%2Fcdn.user.blog.st-hatena.com%2Fcircle_image%2F62150696%2F1734941854288688" /></p>
+<p>ランキング参加中</p>
+<p>【公式】2025年開設ブログ](https://blog.hatena.ne.jp/-/group/6802418398313943584/redirect)</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ayato AI Studio. Generated by AI Agent.</p>
+        </div>
+    </div>
+</body>
+
+</html>

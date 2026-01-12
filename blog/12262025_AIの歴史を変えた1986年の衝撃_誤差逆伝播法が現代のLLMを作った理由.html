@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの歴史を変えた1986年の衝撃。 「誤差逆伝播法」が現代のLLMを作った理由 | Ayato AI Studio</title>
+    <link rel="stylesheet" href="../index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #00ffaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, #ffffff, #888888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content h2 {
+            margin-top: 2rem;
+            color: #00ffaa;
+        }
+
+        .content h3 {
+            margin-top: 1.5rem;
+            color: #0066ff;
+        }
+
+        .content a {
+            color: #00ffaa;
+        }
+
+        .content code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .content pre {
+            background: #222;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <h1>AIの歴史を変えた1986年の衝撃。 「誤差逆伝播法」が現代のLLMを作った理由</h1>
+            <div class="meta">Published on "12/26/2025 12:45:51" by Ayato</div>
+        </header>
+        <div class="content">
+            <p>論文解説 深層学習の起源1986.10.09 Nature</p>
+<h1>AIの歴史を変えた1986年の衝撃。 「誤差逆伝播法」が現代のLLMを作った理由</h1>
+<p>読了目安: 5分</p>
+<p>更新日: 2024.05.20</p>
+<h3>なぜChatGPTは生まれたのか？</h3>
+<p>その答えは、およそ40年前にジェフリー・ヒントンらが発表した、たった4ページの論文にありました。</p>
+<p>私たちが普段使っているChatGPTやClaudeなどの大規模言語モデル（LLM）。まるで人間のように言葉を操るこれらのAIですが、その「知能」の根源的なメカニズムは、実は<strong>1986年10月9日</strong>に発表されたある論文によって確立されました。</p>
+<p>その論文のタイトルは、<br />
+<strong>"Learning representations by back-propagating errors"（誤差逆伝播法による内部表現の学習）</strong>。</p>
+<p>著者には、後に「AIのゴッドファーザー」と呼ばれるジェフリー・ヒントン（Geoffrey Hinton）の名も刻まれています。今回は、この伝説的な論文がどのようにして「AIの冬」を終わらせ、現代のディープラーニング革命の礎となったのかを、専門的な視点を交えて解説します。</p>
+<h4>この記事の目次</h4>
+<ul>
+<li><a href="#section1">1. 1986年以前：なぜAIは「多層化」できなかったのか？</a></li>
+<li><a href="#section2">2. 革新的な解決策：「総当たり」ではなく「微積分」</a></li>
+<li><a href="#section3">3. ブラックボックスの正体：「隠れユニット」の発見</a></li>
+<li><a href="#section4">4. 現代への示唆：LLMが「概念」を獲得する仕組み</a></li>
+</ul>
+<h2>1. 1986年以前：なぜAIは「多層化」できなかったのか？</h2>
+<p>ニューラルネットワークの歴史において、1986年以前は「冬の時代」でした。研究者たちは、人間の脳のようにニューロン（素子）を何層にも重ねれば賢くなるはずだと直感していましたが、決定的な問題に直面していました。</p>
+<p>それは、<strong>「中間層（隠れ層）をどう教育すればいいか分からない」</strong>という問題です。</p>
+<p>ここがポイント</p>
+<p>入力層と出力層だけの単純なモデル（パーセプトロン）なら、間違いを修正するのは簡単です。しかし、間に50人の伝言ゲーム（中間層）が入ると、「最後の出力が間違っていた時、50人のうち誰がどれくらい悪かったのか？」を特定する責任の所在（信用割当問題）が不明確になります。</p>
+<p>当時の技術では、良いパラメータを見つけるには「総当たり」で探すしかなく、それは計算量的に不可能でした。そのため、「中間層は0層で十分」「多層化は不可能」と諦められていたのです。</p>
+<h2>2. 革新的な解決策：「総当たり」ではなく「微積分」</h2>
+<p>この壁を打ち破ったのが、Rumelhartらが提唱した<strong>「誤差逆伝播法（Back-propagation）」</strong>です。彼らが提示したのは、闇雲な探索ではなく、数学（微積分）に基づいたスマートな近道でした。</p>
+<h3>アルゴリズムの仕組み</h3>
+<ol>
+<li><strong>順伝播 (Forward Pass):</strong><br />
+   とりあえず今の重み（パラメータ）でデータを流し、出力してみる。</li>
+<li><strong>誤差計算 (Error Calculation):</strong><br />
+   正解データと出力結果のズレ（誤差）を測る。</li>
+<li><strong>逆伝播 (Backward Pass):</strong><br />
+   ここが革新！ 出力層から入力層に向かって、「お前のせいでこれだけズレた」という責任（誤差信号）を微分を使って逆流させる。</li>
+<li><strong>更新 (Update):</strong><br />
+   計算された責任の重さに応じて、各層の重み（傾きと切片）を少しだけ修正する。</li>
+</ol>
+<p>これにより、ネットワークが何層あっても、<strong>「どの重みを、プラス方向にどれくらい、あるいはマイナス方向にどれくらい動かせば誤差が減るか」</strong>をピンポイントで計算できるようになったのです。</p>
+<h2>3. ブラックボックスの正体：「隠れユニット」の発見</h2>
+<p>この論文の真の価値は、計算手法だけでなく、<strong>「隠れユニット（Hidden Units）」</strong>が持つ可能性を示した点にあります。</p>
+<p>論文の中で、彼らは「対称性の検出」や「家系図の学習」という実験を行いました。その結果、人間が明示的にルールを教えなくても、中間層のニューロンたちが勝手に役割分担を始めることを発見したのです。</p>
+<h4>手動設計（旧来）</h4>
+<p>人間が「猫の耳」や「目の形」という特徴を定義してプログラムする。限界がある。</p>
+<p>New</p>
+<h4>自己組織化（Backprop）</h4>
+<p>データから勝手に「重要な特徴」を見つけ出し、ニューロンがそれを表現するようになる。</p>
+<h2>4. 現代への示唆：LLMが「概念」を獲得する仕組み</h2>
+<p>現代のLLMがなぜ「ブラックボックス」と呼ばれるのか。その理由は、この1986年の論文ですでに予見されていました。</p>
+<p>ChatGPTのようなモデルには、何千億ものパラメータ（重み）が存在します。学習の過程で、中間層の奥深くにあるニューロンは、人間が教えていない「文脈」や「皮肉」、「論理」といった概念を勝手に獲得（内部表現の生成）してしまいます。</p>
+<p><strong>「タスクにおける規則性が、ユニットの相互作用によって捉えられるようになる」</strong></p>
+<p>論文中のこの一文は、まさに現在のAIが私たちを驚かせている理由そのものです。中間層が1層でも50層でも、誤差逆伝播法という強力な「修正ルール」がある限り、AIはデータの中から世界の構造を学び続けることができるのです。</p>
+<h3>まとめ</h3>
+<p>1986年の誤差逆伝播法は、単なる計算アルゴリズムの発明ではありませんでした。それは、<strong>「機械が自ら世界を表現する方法を学ぶ」</strong>ための扉を開いた歴史的瞬間だったのです。今日のAIの進化は、この一つの論文の上に成り立っています。</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ayato AI Studio. Generated by AI Agent.</p>
+        </div>
+    </div>
+</body>
+
+</html>

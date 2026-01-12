@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教科書には載っていない「なぜAIは微分を必要とするのか？」：AIエンジニアのための数学「第0章」 | Ayato AI Studio</title>
+    <link rel="stylesheet" href="../index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #00ffaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, #ffffff, #888888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content h2 {
+            margin-top: 2rem;
+            color: #00ffaa;
+        }
+
+        .content h3 {
+            margin-top: 1.5rem;
+            color: #0066ff;
+        }
+
+        .content a {
+            color: #00ffaa;
+        }
+
+        .content code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .content pre {
+            background: #222;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <h1>教科書には載っていない「なぜAIは微分を必要とするのか？」：AIエンジニアのための数学「第0章」</h1>
+            <div class="meta">Published on "01/01/2026 21:00:00" by Ayato</div>
+        </header>
+        <div class="content">
+            <h1>教科書には載っていない 「なぜAIは微分を必要とするのか？」</h1>
+<p>計算ドリルを始める前に知っておくべき、AIエンジニアのための数学「第0章」</p>
+<p>AIエンジニアを目指して勉強を始めると、必ず「微分」という壁にぶつかります。</p>
+<p>微分の「解き方」を解説した教科書は山ほどありますが、<strong>「そもそも、なぜAIは微分を必要としているのか？」</strong>について、納得いくまで解説してくれているテキストはほとんどありません。</p>
+<p>「公式は覚えた。でも、<strong>それがAIの学習において具体的に何をしているのかイメージできない</strong>」</p>
+<p>この記事は、そんなモヤモヤを抱えるエンジニアのために書きました。数式を一旦脇に置き、AIにおける微分の「正体」を定義します。</p>
+<h2>1. AIの学習とは「目隠しでロボットを操縦すること」</h2>
+<p>まず、イメージを統一しましょう。「山」と「ツマミ」の関係は、以下のように考えるとスッキリ理解できます。</p>
+<p>🤖 🎛️ 🏔️ <strong>【状況設定】</strong><br />
+あなたは目隠しをして、コックピットに座っています。<br />
+遠く離れたデコボコの山脈（誤差の山）に、1台のロボットがいます。<br />
+あなたの目的は、<strong>ロボットを「山の谷底（正解）」に着陸させること</strong>です。</p>
+<p>あなたにはロボットの姿が見えません。手元にあるのは、<strong>ロボットを動かすための「数億個のツマミ（パラメータ）」</strong>だけです。</p>
+<ul>
+<li>ツマミを回すと、ロボットが少し動きます。</li>
+<li>しかし、目隠しをしているので、ツマミをどっちに回せば谷底に近づくのか分かりません。</li>
+</ul>
+<p>ここで、唯一頼りになる計器が<strong>「微分」</strong>です。</p>
+<h2>2. 微分の役割：計器が教える「傾き」と「距離」</h2>
+<p>微分とは、数学的には「ある地点における傾き」のことです。これをコックピットの計器に例えると、次のようになります。</p>
+<h3>① ツマミを回す「方向」を教える（羅針盤）</h3>
+<p>計器（微分）はこう教えてくれます。<br />
+「いま、このツマミを右に少し回すと、ロボットの足元は下がりますよ（傾きがマイナス）」<br />
+これを聞けば、あなたは迷わずツマミを右に回せます。数億個あるツマミのすべてに対して、「どっちに回せば下がるか」を同時に計算するのが微分の仕事です。</p>
+<h3>② ツマミを回す「量」を教える（アクセル）</h3>
+<p>さらに、計器（微分）は「傾きの急さ」も教えてくれます。</p>
+<ul>
+<li><strong>傾きが急（崖っぷち）：</strong>「まだ谷底は遠そうです！大きくツマミを回して一気に進みましょう！」</li>
+<li><strong>傾きが緩やか（平らな場所）：</strong>「谷底が近いです。行き過ぎないよう、慎重にミリ単位で回してください。」</li>
+</ul>
+<p>⚠️ 上級者への第一歩：「ニセモノの谷底」に注意</p>
+<p>微分はあくまで「今の足元の傾き」しか教えてくれません。そのため、本当の谷底（Global Minima）ではないのに、たまたま平らになっている場所（局所解や鞍点）に来ると、計器が「傾きゼロ（到着！）」と誤判定してしまい、ロボットが動けなくなることがあります。</p>
+<p>現代のAI（Adam等の最適化手法）は、こうした罠を回避するために、「勢い（モーメンタム）」をつけて小さな窪みを飛び越えるなどの工夫をしています。</p>
+<h2>3. 計算はライブラリに任せ、人間は「監視」する</h2>
+<p>この複雑な「傾きの計算」と「ツマミの調整」の連鎖を、専門用語で<strong>「バックプロパゲーション（誤差逆伝播法）」</strong>と呼びます。</p>
+<p>現代の開発では、この計算を人間が手で行う必要はありません。PyTorchなどのライブラリが自動（autograd）でやってくれます。しかし、「計算できること」と「意味がわかること」は別です。</p>
+<p>概念さえ分かっていれば、実務でトラブルが起きても原因を推測できます。</p>
+<ul>
+<li>「学習が進まない」→ <strong>勾配消失</strong>（計器が動かなくなり、操縦不能になった？）</li>
+<li>「値がぶっ飛んだ（NaN）」→ <strong>勾配爆発</strong>（傾きが急すぎて、アクセル全開でロボットが彼方へ飛んでいった？）</li>
+</ul>
+<h2>4. 次のステップ：そして「線形代数」との合流へ</h2>
+<p>微分の役割が「操縦のための計器」だと分かったなら、次は<strong>「線形代数（行列）」</strong>へ進みましょう。</p>
+<p>AIは「1つのツマミ」ではなく「数億個のツマミ」を同時に操作します。線形代数は、この大量のデータを管理するだけでなく、<strong>「空間そのものをグニャリと歪めて、谷底を見つけやすい形に変形する」</strong>ための強力な武器です。</p>
+<p>「微分（操縦）」と「線形代数（空間の変形）」が出会ったとき、初めてディープラーニングの全貌が見えてきます。さあ、次は行列の世界へ飛び込みましょう！</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ayato AI Studio. Generated by AI Agent.</p>
+        </div>
+    </div>
+</body>
+
+</html>
