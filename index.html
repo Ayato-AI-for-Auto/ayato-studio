@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Portfolio | AI Powered Tools & Insights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --surface: #111111;
+            --accent: #00ffaa;
+            --text: #ffffff;
+            --muted: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        header {
+            margin-bottom: 6rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #00ffaa, #0066ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        section {
+            margin-bottom: 6rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #222;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+            border-top: 1px solid #111;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 0.8s ease backwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="gradient-text">Ayato AI Studio</span></h1>
+            <p style="color: var(--muted); font-size: 1.2rem;">AIエージェントが自律構築するメディア＆ツール要塞</p>
+        </header>
+
+        <section id="tools">
+            <h2>Micro-SaaS & Tools</h2>
+            <div class="grid">
+                <!-- AIが生成したツールがここに並ぶ -->
+                <a href="tools/prompt_optimizer.html" class="card">
+                    <div class="tag">AI Tool</div>
+                    <h3>Prompt Optimizer</h3>
+                    <p>AIエージェントによって自動生成されたマイクロSaaSツール。</p>
+                </a>
+
+                <div class="card" style="opacity: 0.3;">
+                    <div class="tag">Coming Soon</div>
+                    <h3>Next Disruptive Tool</h3>
+                    <p>市場分析の結果から次にAIが自動開発するツール。近日公開。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog">
+            <h2>Latest Insights</h2>
+            <div class="grid">
+                <!-- AIが生成した記事がここに並ぶ（Netlify等のSSGで自動化可能） -->
+                <a href="blog/test_blog.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>test blog</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12312025_固定長ベクトルの呪縛を解く__論文Neural_Machine_Translation_by_Joi.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>固定長ベクトルの呪縛を解く —— 論文「Neural Machine Translation by Jointly Learning to Align and Translate」解説</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12302025_時系列予測をやっていた私が機械翻訳の未来カンニングに衝撃を受けた話__BiRNN完全解剖.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>時系列予測をやっていた私が、機械翻訳の「未来カンニング」に衝撃を受けた話 —— BiRNN完全解剖</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12292025_Seq2Seq入力文を反転させるとなぜ翻訳精度が劇的に向上するのか.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【Seq2Seq】入力文を「反転」させるとなぜ翻訳精度が劇的に向上するのか？</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12282025_VRAMの限界を突破する次世代技術vLLMの衝撃.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>VRAMの限界を突破する？次世代技術「vLLM」の衝撃</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12272025_衝撃プロンプトを2回繰り返すだけでLLMの性能が劇的向上Prompt_Repetition論文解説.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【衝撃】プロンプトを2回繰り返すだけでLLMの性能が劇的向上？「Prompt Repetition」論文解説</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_開発効率を最大化する_Gemini_CLI_活用ガイド.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>開発効率を最大化する Gemini CLI 活用ガイド</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_論文解説AlexNet画像認識AIの歴史を変えたビッグバンを理解する.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【論文解説】AlexNet：画像認識AIの歴史を変えた「ビッグバン」を理解する</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_解説Attention_is_all_you_need.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【解説】Attention is all you need</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_解決事例WindowsでGemini_CLIが突然コマンドが見つかりませんになった時の対処法.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【解決事例】WindowsでGemini CLIが突然「コマンドが見つかりません」になった時の対処法</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_深層学習なぜRNNではダメなのかLSTMの仕組みを解説.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【深層学習】なぜRNNではダメなのか？LSTMの仕組みを解説</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_決定版uvで爆速Python開発環境を構築Windows11__VSCode対応__pip_venv.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【決定版】uvで爆速Python開発環境を構築！Windows11 + VSCode対応 | pip, venv, pyenvとの違いも解説</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_徹底解説Hugging_Face_CLI_hf_完全ガイドGit_LFSからの脱却と次世代MLOps.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【徹底解説】Hugging Face CLI (hf) 完全ガイド：Git LFSからの脱却と次世代MLOps戦略</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_完全保存版Numba_vs_NumPy_vs_PandasPython高速化の最適解とアーキテクチャ.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【完全保存版】Numba vs NumPy vs Pandas：Python高速化の最適解とアーキテクチャ徹底比較</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_プライバシーポリシーと免責事項.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>プライバシーポリシーと免責事項</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_コピペで完成月額0円で動かすAIブログ自動化システム_-_Google_Cloud_Run_権限エラ.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【コピペで完成】月額0円で動かすAIブログ自動化システム - Google Cloud Run 権限エラー完全攻略ガイド</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_Windows11WSLのクリーンインストールセットアップ完全ガイド.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【Windows11】WSLのクリーンインストール＆セットアップ完全ガイド</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_Python並行処理の極意ThreadPoolExecutor_vs_ProcessPoolExec.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>Python並行処理の極意：ThreadPoolExecutor vs ProcessPoolExecutor 完全解析</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_Pythonによるベクターストア_ChromaDBの実践的なDB運用入門.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>Pythonによるベクターストア (ChromaDB)の実践的なDB運用入門</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_PythonとWSL2で始めるAndroidアプリ開発のセットアップ完全ガイド.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>PythonとWSL2で始めるAndroidアプリ開発のセットアップ完全ガイド</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_Ollama徹底解説あなたのPCが最強のAIマシンになるローカルLLM入門.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>Ollama徹底解説：あなたのPCが最強のAIマシンになる！ローカルLLM入門</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_Gemini_CLIインストール初期設定VScode連携ガイド_for_Windows.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>Gemini CLIインストール＆初期設定&VScode連携ガイド for Windows</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_FFmpegインストール完全ガイド_for_Windows_11決定版.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>FFmpegインストール完全ガイド for Windows 11【決定版】</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_CPUとGPUの違いって何NVIDIAの急成長の理由はめっちゃ簡単に解説.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>「CPUとGPUの違いって何？」「NVIDIAの急成長の理由は？」めっちゃ簡単に解説！！</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_AI開発の壁を壊す思考法安定高品質AIエージェント構築術.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>AI開発の“壁”を壊す思考法：安定高品質AIエージェント構築術</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/12262025_AIの歴史を変えた1986年の衝撃_誤差逆伝播法が現代のLLMを作った理由.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>AIの歴史を変えた1986年の衝撃。 「誤差逆伝播法」が現代のLLMを作った理由</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01062026_NVIDIA公式NsightでGPU性能を完全解析する実践ガイドPython統合Transforme.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>NVIDIA公式NsightでGPU性能を完全解析する実践ガイド【Python統合・Transformer対応】</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01052026_徹底解説ResNetDeep_Residual_LearningがAIの歴史を変えた理由.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【徹底解説】ResNet（Deep Residual Learning）がAIの歴史を変えた理由</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01042026_LLM金融テキスト解析は数値を超えるかAI企業分析の最前線論文4選.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【LLM×金融】テキスト解析は「数値」を超えるか？AI企業分析の最前線論文4選</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01032026_AAAI_2025財務諸表LLM数値とテキストを掛け算する新手法とは.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>【AAAI 2025】財務諸表×LLM。数値とテキストを「掛け算」する新手法とは？</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01022026_GPTにエンコーダがいらない本当の理由__BiRNNを学んで気づいたパラダイムシフト.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>GPTにエンコーダがいらない本当の理由 —— BiRNNを学んで気づいたパラダイムシフト</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a>
+                <a href="blog/01012026_教科書には載っていないなぜAIは微分を必要とするのかAIエンジニアのための数学第0章.md" class="card">
+                    <div class="tag">Insight</div>
+                    <h3>教科書には載っていない「なぜAIは微分を必要とするのか？」：AIエンジニアのための数学「第0章」</h3>
+                    <p>最新の技術トレンドとAI市場の分析レポート。</p>
+                    <small style="color: var(--accent); margin-top: 1rem; display: block;">Read More →</small>
+                </a></div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 AI Empire Portfolio. Powered by Antigravity Horiemon Logic Engine.
+    </footer>
+</body>
+
+</html>
