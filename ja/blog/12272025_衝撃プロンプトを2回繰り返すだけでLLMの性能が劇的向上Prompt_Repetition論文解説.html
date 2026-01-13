@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【衝撃】プロンプトを2回繰り返すだけでLLMの性能が劇的向上？「Prompt Repetition」論文解説 | Ayato AI Studio</title>
+    <meta name="description" content="TechInsider AI論文解説   [元論文を読む](https://arxiv.org/abs/2512.14982)  Prompt Engineering  # 「推論」はもう不要？ プロンプトを2回繰り返すだけで LLMの性能が爆上がりする件  2025.12.27 5分で読めます...">
+    <link rel="canonical" href="https://ayato-studio.ai/ja/blog/12272025_衝撃プロンプトを2回繰り返すだけでLLMの性能が劇的向上Prompt_Repetition論文解説.html">
+    <link rel="stylesheet" href="../../index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #00ffaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, #ffffff, #888888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content h2 {
+            margin-top: 2rem;
+            color: #00ffaa;
+        }
+
+        .content h3 {
+            margin-top: 1.5rem;
+            color: #0066ff;
+        }
+
+        .content a {
+            color: #00ffaa;
+        }
+
+        .content code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .content pre {
+            background: #222;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <h1>【衝撃】プロンプトを2回繰り返すだけでLLMの性能が劇的向上？「Prompt Repetition」論文解説</h1>
+            <div class="meta">Published on "12/27/2025 20:47:48" by Ayato</div>
+        </header>
+        <div class="content">
+            <p>TechInsider AI論文解説</p>
+<p><a href="https://arxiv.org/abs/2512.14982">元論文を読む</a></p>
+<p>Prompt Engineering</p>
+<h1>「推論」はもう不要？ プロンプトを2回繰り返すだけで LLMの性能が爆上がりする件</h1>
+<p>2025.12.27 5分で読めます</p>
+<h2>この記事の要点（TL;DR）</h2>
+<ul>
+<li>最新論文により、<strong>プロンプトを単に2回繰り返すだけ</strong>でGeminiやGPTの回答精度が向上することが判明。</li>
+<li>CoT（思考の連鎖）を使わないため、<strong>コスト（出力トークン）も待ち時間（レイテンシ）も増えない</strong>。</li>
+<li>因果的モデル（GPT）で、擬似的に双方向モデル（BERT）のような<strong>「深い文脈理解」</strong>を強制するハック手法。</li>
+</ul>
+<h2>1 CoT（思考の連鎖）のジレンマ</h2>
+<p>「LLMの精度を上げたいなら、『ステップバイステップで考えて』と指示しろ」。これはプロンプトエンジニアリングの常識でした。 しかし、APIを利用してアプリケーションを開発するエンジニアにとって、これは**「コスト」と「速度」のトレードオフ**を意味します。</p>
+<h3>CoTありの場合</h3>
+<p>「答えはAです。なぜなら〜」と思考過程を出力するため、<strong>トークン課金が増え、レスポンスも遅い</strong>。</p>
+<h3>今回の手法</h3>
+<p>「答えはAです。」と即答させるが、精度は高い。<strong>安くて速い</strong>。</p>
+<p>今回紹介する論文<strong>「Prompt Repetition Improves Non-Reasoning LLMs」</strong>は、このジレンマを解決する驚くべき発見を報告しています。</p>
+<h2>2 魔法の呪文「<Query><Query>」</h2>
+<p>手法は拍子抜けするほど簡単です。LLMに入力するプロンプト（質問）を、<strong>ただ2回繰り返して送信するだけ</strong>です。</p>
+<p>Input Prompt Example  Copy</p>
+<p>`&lt;コンテキスト&gt;<br />
+以下の文章を読んで質問に答えてください...（文章）...  </p>
+<p>&lt;質問&gt;<br />
+この文章の結論は何ですか？  </p>
+<p>&lt;コンテキスト（繰り返し）&gt;<br />
+以下の文章を読んで質問に答えてください...（文章）...  </p>
+<p>&lt;質問（繰り返し）&gt;<br />
+この文章の結論は何ですか？`</p>
+<p>推論（Reasoning）モードを使わず、この「繰り返しプロンプト」を入力するだけで、Gemini、GPT-4o、Claude、DeepSeekといった主要モデルすべてでパフォーマンスが向上することが確認されました。</p>
+<h2>3 なぜこれだけで賢くなるのか？</h2>
+<p>「2回言われるとよく分かる」というのは人間と同じですが、LLMの場合はより技術的な理由があります。それは<strong>「因果的注意機構（Causal Attention）」のハック</strong>です。</p>
+<h3>💡 技術的解説：擬似的な双方向エンコーダ化</h3>
+<p>現在のLLM（GPTなど）は、原則として「前の単語」しか見ることができません（Causal Masking）。<br />
+しかし、入力を2回繰り返すとどうなるでしょうか？</p>
+<p>1回目のクエリ処理<br />
+未来が見えない（片方向）</p>
+<p>2回目のクエリ処理<br />
+1回目の全内容が見える！<br />
+（実質、双方向）</p>
+<p>これにより、モデルは推論時間をかけずに、BERTのような<strong>「文章全体を俯瞰した深い理解」</strong>を強制的に獲得できるのです。</p>
+<h2>4 Pythonユーザーへの福音</h2>
+<p>Web版のChatGPTやGeminiを使っている場合、すでに裏側でこのような最適化が行われている（あるいは今後実装される）可能性があります。 しかし、<strong>PythonなどでAPIを直接叩いている開発者</strong>にとっては、この手法は即戦力です。</p>
+<ul>
+<li>
+<h4>コスト削減</h4>
+</li>
+</ul>
+<p>入力トークンは増えますが、高価な出力トークンは最小限（回答のみ）で済みます。
+* #### 超低レイテンシ</p>
+<p>「プレフィル（入力処理）」は並列処理されるため、入力が倍になっても待ち時間はほぼ変わりません。</p>
+<h2>まとめ：明日から使える「無料のパワーアップ」</h2>
+<p>「複雑な推論はさせたくないが、精度は落としたくない」。<br />
+そんなワガママな要件があるときは、迷わずプロンプトをループさせてみてください。<br />
+LLMは2度聞かれると、私たちが思う以上に深く理解してくれます。</p>
+<p><a href="https://arxiv.org/abs/2512.14982">論文全文を読む (arXiv)</a></p>
+<p>© 2025 TechInsider Blog. Based on the research "Prompt Repetition Improves Non-Reasoning LLMs".</p>
+<p>※本記事は論文内容の解説であり、特定の手法による利益を保証するものではありません。</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Ayato AI Studio. Generated by AI Agent.</p>
+        </div>
+    </div>
+</body>
+
+</html>

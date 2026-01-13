@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Optimizer | Ayato AI Studio</title>
+    <meta name="description"
+        content="Turn vague instructions into professional-grade AI prompts. Instantly improve LLM accuracy.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --surface: #111111;
+            --surface-hover: #1a1a1a;
+            --accent: #00ffaa;
+            --accent-dim: rgba(0, 255, 170, 0.1);
+            --text: #ffffff;
+            --muted: #888888;
+            --border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--text), var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tool-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tool-interface {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel h2 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text);
+            font-family: monospace;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .controls {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: var(--surface-hover);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+        }
+
+        button.primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        button:hover {
+            border-color: var(--muted);
+        }
+
+        .options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .checkbox-group input {
+            accent-color: var(--accent);
+        }
+
+        .output-area {
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--surface);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link">← Portal Top</a>
+            <h1>Prompt Optimizer</h1>
+            <p>Turn "Vague Thoughts" into "Professional Instructions".</p>
+        </header>
+
+        <div class="tool-interface">
+            <!-- INPUT -->
+            <div class="panel">
+                <h2>📝 Your Request (Raw)</h2>
+                <div class="options">
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="cot" checked> Chain of Thought
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="markdown" checked> Markdown Output
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="pro" checked> Expert Persona
+                    </label>
+                </div>
+                <textarea id="inputPrompt"
+                    placeholder="e.g. Write a Python script to scrape a website and handle errors."></textarea>
+                <div class="controls">
+                    <button class="primary" onclick="optimizePrompt()">⚡ OPTIMIZE</button>
+                    <button onclick="clearText()">Clear</button>
+                </div>
+            </div>
+
+            <!-- OUTPUT -->
+            <div class="panel output-area">
+                <h2>🚀 Optimized Prompt</h2>
+                <button class="copy-btn" onclick="copyToClipboard()">COPY</button>
+                <textarea id="outputPrompt" readonly placeholder="Optimized result will appear here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Ayato AI Studio. Horiemon Logic Engine.
+    </footer>
+
+    <script>
+        function optimizePrompt() {
+            const input = document.getElementById('inputPrompt').value.trim();
+            if (!input) {
+                alert("Please enter a prompt.");
+                return;
+            }
+
+            const useCoT = document.getElementById('cot').checked;
+            const useMarkdown = document.getElementById('markdown').checked;
+            const usePro = document.getElementById('pro').checked;
+
+            let optimized = "";
+
+            // 1. Role Definition (Horiemon Style)
+            if (usePro) {
+                optimized += "# Role & Persona\n";
+                optimized += "You are an elite expert in this field. Act with high precision, logical reasoning, and professional tone.\n";
+                optimized += "Ignore superficial advice; focus on actionable, production-ready solutions.\n\n";
+            }
+
+            // 2. The Core Request
+            optimized += "# Request\n";
+            optimized += input + "\n\n";
+
+            // 3. System Constraints
+            optimized += "# Constraints & Guidelines\n";
+            if (useCoT) {
+                optimized += "- **Chain of Thought**: Think step-by-step. Explain your reasoning before providing the final answer.\n";
+            }
+            if (useMarkdown) {
+                optimized += "- **Formatting**: Use clean Markdown. Use code blocks for scripts.\n";
+            }
+            optimized += "- **Clarity**: Be concise but comprehensive. Avoid fluff.\n";
+            optimized += "- **Safety**: Ensure code is secure and follows best practices.\n";
+
+            // 4. Output Logic
+            optimized += "\n# Output Format\n";
+            optimized += "1. Conceptual Explanation\n";
+            optimized += "2. Global Implementation (Code/Steps)\n";
+            optimized += "3. Caveats & Edge Cases\n";
+
+            // Typing Animation Simulation
+            const outEl = document.getElementById('outputPrompt');
+            outEl.value = "Optimizing...";
+
+            setTimeout(() => {
+                outEl.value = optimized;
+            }, 300);
+        }
+
+        function clearText() {
+            document.getElementById('inputPrompt').value = "";
+            document.getElementById('outputPrompt').value = "";
+        }
+
+        function copyToClipboard() {
+            const outEl = document.getElementById('outputPrompt');
+            outEl.select();
+            document.execCommand('copy');
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED!";
+            setTimeout(() => {
+                btn.innerText = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
