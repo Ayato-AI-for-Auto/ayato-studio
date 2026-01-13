@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA公式NsightでGPU性能を完全解析する実践ガイド【Python統合・Transformer対応】 | Ayato Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Blog specific overrides */
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .blog-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        .blog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blog-meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+        .blog-content h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #fff;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
+        }
+        .blog-content h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        .blog-content p {
+            margin-bottom: 20px;
+        }
+        .blog-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .blog-content pre {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: #fff;
+        }
+        /* Hatena specific cleanups */
+        .keyword { text-decoration: none; color: inherit; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <header class="blog-header">
+            <h1>NVIDIA公式NsightでGPU性能を完全解析する実践ガイド【Python統合・Transformer対応】</h1>
+            <div class="blog-meta">
+                <span>Published: 01/06/2026 08:00:00</span>
+            </div>
+        </header>
+
+        <article class="blog-content">
+            <p> </p>
+<style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height: 1.8;
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px;
+      color: #222;
+    }
+    h1, h2, h3 {
+      margin-top: 2em;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3em;
+    }
+    pre {
+      background: #f6f8fa;
+      padding: 16px;
+      overflow-x: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.5em 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background: #f0f0f0;
+    }
+    .note {
+      background: #eef5ff;
+      padding: 16px;
+      border-left: 4px solid #2563eb;
+      margin: 1.5em 0;
+    }
+    .warn {
+      background: #fff4e5;
+      padding: 16px;
+      border-left: 4px solid #f59e0b;
+      margin: 1.5em 0;
+    }
+  </style>
+<article>
+<h1 id="NVIDIA公式NsightでGPU性能を完全解析する実践ガイド"><a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>公式Nsightで<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>性能を完全解析する実践ガイド</h1>
+<p>本記事では、<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>公式ツールである <strong>Nsight Systems</strong> と <strong>Nsight Compute</strong> を用い、<a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a>アプリケーションに正規に組み込みつつ、 Transformer・FlashAttention・最新<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>世代まで含めて <strong><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>性能を科学的に解析する方法</strong>を解説します。</p>
+<hr />
+<h2 id="序論Part-1-直感的理解GPUはトラック輸送である">＜序論＞Part 1: 直感的理解「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>はトラック輸送である」</h2>
+<p><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>のスペック表には「CUDAコア数」「VRAM容量」「メモリ帯域」など難解な用語が並びますが、これらはすべて「配送センター（<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>）でのトラック輸送」に例えると本質が見えてきます。</p>
+<div class="analogy-box"><span class="analogy-title">🚚 <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>工場とトラックの比喩</span>
+<ul>
+<li><strong><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>の種類（例：RTX 3050/4090）：</strong> トラックの「車種」。</li>
+<li><strong>VRAM容量：</strong> トラックの「荷台の広さ」。</li>
+<li><strong>CUDAコア（馬力）：</strong> エンジンの強さ。荷物を運ぶ（計算する）スピード。</li>
+<li><strong>メモリ帯域：</strong> 倉庫から荷台へ荷物を積み込む「通路の広さ」。</li>
+<li><strong>Batch Size：</strong> 一度にトラックに積む「荷物の量」。</li>
+</ul>
+</div>
+<h3 id="なぜ-Batch-Size-を増やしても速くならないのか">なぜ Batch Size を増やしても速くならないのか？</h3>
+<p>初心者が陥る最大の罠がこれです。「VRAM（荷台）が空いているから、Batch Size（荷物）を増やせば速くなるはずだ」という誤解です。</p>
+<p><strong>ケースA：Compute Bound（エンジンの限界）</strong></p>
+<p>トラックの荷台（VRAM）が半分空いていたとしても、エンジン（CUDAコア）が既に最高速度で回転していたらどうなるでしょうか？<br />荷物をさらに積んでも、トラックの速度は上がりません。むしろ重くなって遅くなる可能性すらあります。<br />これが<strong>「VRAMは余っているが、計算能力が限界」</strong>という状態です。</p>
+<p><strong>ケースB：Memory Bound（通路の渋滞）</strong></p>
+<p>エンジン（CUDAコア）は高性能なのに、荷物（データ）を積み込む通路（メモリ帯域）が狭い場合、運転手は「荷積み待ち」で待機することになります。<br />この場合、計算速度を決めているのはCUDAコア数ではなく、<strong>メモリ帯域（Bandwidth）</strong>です。</p>
+<div class="note"><strong>重要結論：</strong><br />VRAMは「計算を行うための参加資格（そこにデータが置けるか）」に過ぎず、計算速度そのものを上げるエンジンではありません。</div>
+<h2 id="序論Part-2-CUDA使用率100の嘘">＜序論＞Part 2: 「CUDA使用率100%」の嘘</h2>
+<p><code>nvidia-smi</code> で表示される「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> Utilization 100%」を見て、「よし、<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>を使い切っている！」と安心していませんか？<br />実は、これは<strong>「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が忙しそうにしている（少なくとも1つの<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>が動いている）」</strong>という指標に過ぎず、<strong>「効率よく計算している」ことを意味しません。</strong></p>
+<div class="warn"><strong>CUDA使用率100%でも遅い理由：</strong>
+<ul>
+<li><strong>メモリアクセス待ち：</strong> データが届くのを待っている間も、<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>は「稼働中」とカウントされます（アイドリング状態）。</li>
+<li><strong><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core未使用：</strong> 高速道路をローギアで走っているような状態。FP32演算のみで、<a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Coreを使っていなければ、真の性能の数分の一しか出ません。</li>
+<li><strong>ストール（Stall）：</strong> 分岐予測ミスや依存関係により、演算ユニットが止まっている状態。</li>
+</ul>
+</div>
+<h2 id="1-なぜ公式ツール以外では不十分なのか">1. なぜ「公式ツール」以外では不十分なのか</h2>
+<p><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>の性能問題は、推定FLOPSやCUDA使用率では解決できません。 <a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>は一貫して次の立場を取っています。</p>
+<div class="note"><strong><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>内部の実効性能は、公式ハードウェアカウンタでのみ正確に観測できる。</strong></div>
+<p>このカウンタにアクセスできるのが Nsight Systems / Nsight Compute です。</p>
+<hr />
+<h2 id="2-NVIDIA-GPU内部構造の基礎解析の前提知識">2. <a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>内部構造の基礎（解析の前提知識）</h2>
+<table>
+<tbody>
+<tr>
+<th>要素</th>
+<th>役割</th>
+</tr>
+<tr>
+<td>SM</td>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>の演算単位。<a class="keyword" href="https://d.hatena.ne.jp/keyword/Warp">Warp</a>を並列実行</td>
+</tr>
+<tr>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/Warp">Warp</a></td>
+<td>32スレッドのSIMT実行単位</td>
+</tr>
+<tr>
+<td>CUDA Core</td>
+<td>スカラ演算</td>
+</tr>
+<tr>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core</td>
+<td>行列演算（FP16/BF16/TF32）</td>
+</tr>
+<tr>
+<td>Occupancy</td>
+<td>SMに詰め込める<a class="keyword" href="https://d.hatena.ne.jp/keyword/Warp">Warp</a>数</td>
+</tr>
+<tr>
+<td>Memory Bandwidth</td>
+<td>データ供給能力</td>
+</tr>
+</tbody>
+</table>
+<p>Nsightの解析は、これらの「どこが飽和しているか」を特定する行為です。</p>
+<hr />
+<h2 id="3-Pythonへの公式な組み込み方法NVTX">3. <a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a>への公式な組み込み方法①：NVTX</h2>
+<h3 id="NVTXとは">NVTXとは</h3>
+<p>NVTXは <a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>公式の<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%CE%A5%C6%A1%BC%A5%B7%A5%E7%A5%F3">アノテーション</a><a class="keyword" href="https://d.hatena.ne.jp/keyword/API">API</a>で、 Nsightが<a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a>コードの意味的<a class="keyword" href="https://d.hatena.ne.jp/keyword/%B6%E8%B4%D6">区間</a>を理解するための唯一の手段です。</p>
+<h3 id="PyTorch--NVTX-実装例">PyTorch × NVTX 実装例</h3>
+<pre><code>
+import torch.cuda.nvtx as nvtx
+
+def train_step(model, batch):
+    nvtx.range_push("forward")
+    out = model(batch)
+    nvtx.range_pop()
+
+    nvtx.range_push("backward")
+    out.sum().backward()
+    nvtx.range_pop()
+</code></pre>
+<div class="note">Nsight Systems 上では forward / backward が色付きで表示され、 CPU・<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>・通信のどこで止まっているかが一目で分かります。</div>
+<hr />
+<h2 id="4-Pythonへの公式な組み込み方法Nsightを外部から起動">4. <a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a>への公式な組み込み方法②：Nsightを外部から起動</h2>
+<h3 id="subprocessによる統合実務標準">subprocessによる統合（実務標準）</h3>
+<pre><code>
+import subprocess
+from pathlib import Path
+
+def run_with_nsys(script):
+    Path("nsys_report").mkdir(exist_ok=True)
+    subprocess.run([
+        "nsys", "profile",
+        "--trace=cuda,nvtx,osrt",
+        "--stats=true",
+        "--output=nsys_report/run",
+        "python", script
+    ], check=True)
+</code></pre>
+<p>CI・検証・<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%D9%A5%F3%A5%C1%A5%DE%A1%BC%A5%AF">ベンチマーク</a>環境ではこの方式が公式に推奨されています。</p>
+<hr />
+<h2 id="5-Transformer--Attention-専用の可視化戦略">5. Transformer / Attention 専用の可視化戦略</h2>
+<p>Transformer解析では「層単位」での可視化が不可欠です。</p>
+<pre><code>
+nvtx.range_push("attention_qkv")
+qkv = self.qkv(x)
+nvtx.range_pop()
+
+nvtx.range_push("attention_softmax")
+attn = softmax(q @ k.transpose(-2, -1))
+nvtx.range_pop()
+</code></pre>
+<p>これにより以下が判別可能になります。</p>
+<ul>
+<li>AttentionがMemory Boundか</li>
+<li>GEMMが<a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Coreを使っているか</li>
+<li>softmaxが<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>か</li>
+</ul>
+<hr />
+<h2 id="6-Nsight-Computeカーネル内部の公式解析">6. Nsight Compute：<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>内部の公式解析</h2>
+<h3 id="実行例">実行例</h3>
+<pre><code>
+ncu --set full \
+    --kernel-name "aten::matmul" \
+    --target-processes all \
+    python train.py
+</code></pre>
+<h3 id="重要指標">重要指標</h3>
+<table>
+<tbody>
+<tr>
+<th>指標</th>
+<th>意味</th>
+</tr>
+<tr>
+<td>Achieved FLOPS</td>
+<td>実効演算性能</td>
+</tr>
+<tr>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core Utilization</td>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core使用率</td>
+</tr>
+<tr>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Throughput</td>
+<td>メモリ帯域使用率</td>
+</tr>
+<tr>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/Warp">Warp</a> Execution Efficiency</td>
+<td>分岐・再実行の影響</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-Nsight-Compute-結果を自動収集CSV化">7. Nsight Compute 結果を自動収集・<a class="keyword" href="https://d.hatena.ne.jp/keyword/CSV">CSV</a>化</h2>
+<pre><code>
+ncu --csv --log-file result.csv \
+    --kernel-name "aten::matmul" \
+    python train.py
+</code></pre>
+<p>これにより、性能<a class="keyword" href="https://d.hatena.ne.jp/keyword/%B2%F3%B5%A2%A5%C6%A5%B9%A5%C8">回帰テスト</a>や世代比較が可能になります。</p>
+<hr />
+<h2 id="8-FlashAttention--torchcompile-の公式評価方法">8. FlashAttention / torch.compile の公式評価方法</h2>
+<p>FlashAttention や torch.compile の評価は <strong>必ず Nsight Compute で行う必要があります</strong>。</p>
+<ul>
+<li><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core Utilization が上がっているか</li>
+<li><a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Traffic が減っているか</li>
+<li>Kernel Fusion が成功しているか</li>
+</ul>
+<hr />
+<h2 id="9-GPU世代別Ampere--Ada--Hopperの見方">9. <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>世代別（Ampere / Ada / Hopper）の見方</h2>
+<table>
+<tbody>
+<tr>
+<th>世代</th>
+<th>注目点</th>
+</tr>
+<tr>
+<td>Ampere</td>
+<td>TF32 / <a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core 活用</td>
+</tr>
+<tr>
+<td>Ada</td>
+<td>L2増加によるMemory挙動</td>
+</tr>
+<tr>
+<td>Hopper</td>
+<td>FP8 / <a class="keyword" href="https://d.hatena.ne.jp/keyword/TMA">TMA</a> / Async</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-やってはいけないGPU解析">10. やってはいけない<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>解析</h2>
+<div class="warn">
+<ul>
+<li>推定FLOPSでの結論</li>
+<li>CUDA使用率100%＝速いという誤解</li>
+<li>Nsight無しの最適化</li>
+</ul>
+</div>
+<hr />
+<h2 id="まとめ">まとめ</h2>
+<p><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>性能解析は「感覚」ではなく「公式計測」で行う時代です。 Nsightは難しいツールではなく、 <strong>正しく使えば最も信頼できる判断基準</strong>になります。</p>
+<hr />
+<h2 id="補足解説Roofline-Model--Nsight-Compute-の対応関係">補足解説：Roofline Model × Nsight Compute の対応関係</h2>
+<p><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>性能解析の理論的背景として、<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>公式資料や大学講義で必ず登場するのが <strong>Roofline Model</strong> です。 本章では、このRoofline Modelが <strong>Nsight Computeのどの指標に対応しているのか</strong>を整理します。</p>
+<hr />
+<h3 id="Roofline-Modelとは何か最小限の理解">Roofline Modelとは何か（最小限の理解）</h3>
+<p>Roofline Modelは、ある計算がどの性能上限に支配されているかを、 <strong>Arithmetic Intensity（演算密度）</strong>という1つの指標で分類するモデルです。</p>
+<ul>
+<li><strong>縦軸：</strong> 実効性能（FLOPS）</li>
+<li><strong>横軸：</strong> Arithmetic Intensity（FLOP / Byte）</li>
+</ul>
+<p>そして<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>性能は、次の2つの「屋根（Roof）」のどちらかに必ず制限されます。</p>
+<ul>
+<li><strong>Compute Roof：</strong> <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>の最大演算性能</li>
+<li><strong>Memory Roof：</strong> メモリ帯域による上限</li>
+</ul>
+<div class="note"><strong>重要：</strong><br />Roofline Modelの本質は「理論図」ではなく、 <strong>どちらの上限にぶつかっているかを判定するための思考フレーム</strong>です。</div>
+<hr />
+<h3 id="Roofline-ModelはNsight-Computeでどう見えるか">Roofline ModelはNsight Computeでどう見えるか</h3>
+<p>Nsight Computeは、Roofline Modelに必要な全ての情報を <strong>公式ハードウェアカウンタ</strong>として直接提供します。</p>
+<table>
+<tbody>
+<tr>
+<th>Roofline要素</th>
+<th>Nsight Compute 指標</th>
+<th>意味</th>
+</tr>
+<tr>
+<td>実効FLOPS</td>
+<td>Achieved FLOPS</td>
+<td>実際に出ている演算性能</td>
+</tr>
+<tr>
+<td>理論最大FLOPS</td>
+<td>Peak FLOPS</td>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>スペック上の最大値</td>
+</tr>
+<tr>
+<td>メモリ帯域使用率</td>
+<td><a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Throughput</td>
+<td>メモリ側の飽和度</td>
+</tr>
+<tr>
+<td>演算密度</td>
+<td>Arithmetic Intensity</td>
+<td>FLOP / Byte（Nsightが自動算出）</td>
+</tr>
+</tbody>
+</table>
+<p>つまり、Nsight Computeの結果を見るだけで、 <strong>Roofline Modelを頭の中で再構築できる</strong>ということです。</p>
+<hr />
+<h3 id="Compute-Bound--Memory-Bound-の公式判定方法">Compute Bound / Memory Bound の公式判定方法</h3>
+<p>Roofline Modelに基づく公式な判定は、以下のように行います。</p>
+<h4 id="-Compute-Bound-の典型パターン">① Compute Bound の典型パターン</h4>
+<ul>
+<li>Achieved FLOPS が Peak FLOPS に近い</li>
+<li><a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Throughput は余裕がある</li>
+<li><a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core Utilization が高い</li>
+</ul>
+<p>これは、Rooflineの「Compute Roof」に張り付いている状態であり、 <strong>これ以上速くするには<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%EB%A5%B4%A5%EA%A5%BA%A5%E0">アルゴリズム</a>自体を変える必要があります。</strong></p>
+<h4 id="-Memory-Bound-の典型パターン">② Memory Bound の典型パターン</h4>
+<ul>
+<li>Achieved FLOPS が低い</li>
+<li><a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Throughput がピーク付近</li>
+<li>Arithmetic Intensity が低い</li>
+</ul>
+<p>これは、Rooflineの「Memory Roof」に制限されている状態であり、 <strong>計算を減らすのではなく、メモリアクセスを減らす最適化</strong>が必要です。</p>
+<div class="note">Roofline Modelは「どちらが悪いか」を責めるモデルではなく、 <strong>どこに手を入れるべきかを示す<a class="keyword" href="https://d.hatena.ne.jp/keyword/%CD%E5%BF%CB%C8%D7">羅針盤</a></strong>です。</div>
+<hr />
+<h3 id="Transformer--Attention-をRooflineで考える">Transformer / Attention をRooflineで考える</h3>
+<p>Transformerにおける代表的な処理をRoofline視点で分類すると、 以下のようになります。</p>
+<table>
+<tbody>
+<tr>
+<th>処理</th>
+<th>Roofline分類</th>
+<th>理由</th>
+</tr>
+<tr>
+<td>QKV Linear</td>
+<td>Compute Bound</td>
+<td>GEMM + <a class="keyword" href="https://d.hatena.ne.jp/keyword/Tensor">Tensor</a> Core</td>
+</tr>
+<tr>
+<td>Attention Softmax</td>
+<td>Memory / Latency Bound</td>
+<td>演算密度が低い</td>
+</tr>
+<tr>
+<td>FlashAttention</td>
+<td>Compute寄り</td>
+<td>メモリアクセス削減</td>
+</tr>
+</tbody>
+</table>
+<p>FlashAttentionが「速い」のではなく、 <strong>Roofline上の位置を意図的に右上へ動かしている</strong> と理解すると、本質が見えてきます。</p>
+<hr />
+<h3 id="なぜNsightが必須なのかRoofline視点">なぜNsightが必須なのか（Roofline視点）</h3>
+<p>推定FLOPSや理論式だけでは、 <strong>自分のコードがRooflineのどこにいるか</strong>は分かりません。</p>
+<ul>
+<li>Arithmetic Intensity → Nsight Compute</li>
+<li>Achieved FLOPS → Nsight Compute</li>
+<li>Memory Roof → <a class="keyword" href="https://d.hatena.ne.jp/keyword/DRAM">DRAM</a> Throughput</li>
+</ul>
+<p>これらを同時に、かつ正確に観測できるのが Nsight Computeだけであるため、 <strong>Roofline ModelとNsightは不可分</strong>なのです。</p>
+<hr />
+<h3 id="まとめRooflineはNsightの読み方">まとめ：Rooflineは「Nsightの読み方」</h3>
+<p>Roofline Modelは、単独で使う理論ではありません。 Nsight Computeの結果を<strong>どう解釈するか</strong>を与える<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%D5%A5%EC%A1%BC%A5%E0%A5%EF%A1%BC%A5%AF">フレームワーク</a>です。</p>
+<div class="note">Nsightを見て数値を眺めるだけの状態から、<br />「なぜ遅いのか」「次に何を変えるべきか」を説明できる状態へ。<br />それがRoofline Modelの役割です。</div>
+</article>
+        </article>
+
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </div>
+</body>
+</html>

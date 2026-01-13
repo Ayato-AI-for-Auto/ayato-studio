@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nvidiaのアカウント構築方法とNsight Computeのダウンロードと初期セットアップ | Ayato Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Blog specific overrides */
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .blog-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        .blog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blog-meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+        .blog-content h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #fff;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
+        }
+        .blog-content h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        .blog-content p {
+            margin-bottom: 20px;
+        }
+        .blog-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .blog-content pre {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: #fff;
+        }
+        /* Hatena specific cleanups */
+        .keyword { text-decoration: none; color: inherit; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <header class="blog-header">
+            <h1>Nvidiaのアカウント構築方法とNsight Computeのダウンロードと初期セットアップ</h1>
+            <div class="blog-meta">
+                <span>Published: 01/08/2026 08:30:00</span>
+            </div>
+        </header>
+
+        <article class="blog-content">
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104211903.png" width="1200" height="536" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p><span style="color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #eeeeee; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">↓</span></p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104211935.png" width="1200" height="529" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p><span style="color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #eeeeee; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Download</span><br style="box-sizing: border-box; color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;" /><span style="color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #eeeeee; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Latest</span><br style="box-sizing: border-box; color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;" /><span style="color: #212529; font-family: 'NVIDIA Sans', sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #eeeeee; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Release</span></p>
+<p> </p>
+<p>と表示してくれているので、それをクリック</p>
+<p>↓</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104212041.png" width="996" height="542" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p>メールアドレスを入力してクリック</p>
+<p>指示に従って、一般的な形式表示されるでアカウント作成画面に従ってアカウントを構築します。</p>
+<p>↓</p>
+<p>構築が終了することこの画面が現れ、Complate profilerをクリックすると最新バージョンのダウンロードが開始されます。</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104212413.png" width="1200" height="479" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p>↓</p>
+<p>このようなファイルがあるはずなので、展開してください。</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104212527.png" width="446" height="174" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p>↓</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104212626.png" width="619" height="475" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p data-path-to-node="3,0"><strong data-path-to-node="3,0" data-index-in-node="0"><a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Compute 2025.4.0 セットアップウィザードへようこそ</strong></p>
+<p data-path-to-node="3,1">セットアップウィザードは、あなたのコンピュータに「<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Compute 2025.4.0」をインストールします。「Next（次へ）」をクリックして続けるか、「Cancel（キャンセル）」をクリックして終了してください。</p>
+<p data-path-to-node="3,1"> </p>
+<p data-path-to-node="3,1">↓</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104212816.png" width="598" height="449" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p data-path-to-node="0">この画像は、**「エンドユーザー使用許諾契約書（<a class="keyword" href="https://d.hatena.ne.jp/keyword/EULA">EULA</a>）」**への同意を求める画面です。</p>
+<p data-path-to-node="1">ソフトウェアを使用する前に、ユーザー（あなた）と<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>の間で交わされる法的なルールの確認を求めています。</p>
+<h3 data-path-to-node="2" id="主な内容の要約">主な内容の要約</h3>
+<p data-path-to-node="3">書かれている内容は一般的なソフトウェアの契約条項ですが、特に以下の点が重要です：</p>
+<ul data-path-to-node="4">
+<li>
+<p data-path-to-node="4,0,0"><strong data-path-to-node="4,0,0" data-index-in-node="0">使用目的の制限:</strong> 基本的に<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>の<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>を搭載したシステム向けのアプリケーション開発に使用すること。</p>
+</li>
+<li>
+<p data-path-to-node="4,1,0"><strong data-path-to-node="4,1,0" data-index-in-node="0">禁止事項:</strong> ソフトウェアを解析（<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%EA%A5%D0%A1%BC%A5%B9%A5%A8%A5%F3%A5%B8%A5%CB%A5%A2%A5%EA%A5%F3%A5%B0">リバースエンジニアリング</a>）したり、<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%BD%A1%BC%A5%B9%A5%B3%A1%BC%A5%C9">ソースコード</a>を復元しようとしたりしてはいけません。</p>
+</li>
+<li>
+<p data-path-to-node="4,2,0"><strong data-path-to-node="4,2,0" data-index-in-node="0">免責事項（ミッションクリティカルな用途）:</strong> 医療用の生命維持装置、軍事、航空管制など、故障が人命や破滅的な損害に関わるような「ミッションクリティカル」な用途向けには設計・テストされていません。</p>
+</li>
+<li>
+<p data-path-to-node="4,3,0"><strong data-path-to-node="4,3,0" data-index-in-node="0">保証の否認:</strong> ソフトウェアは「現状有姿（As-Is）」で提供され、不具合がないことの保証はされません。</p>
+</li>
+</ul>
+<h3 data-path-to-node="5" id="次に行う操作">次に行う操作</h3>
+<p data-path-to-node="6">画像ではすでに左下の <strong data-path-to-node="6" data-index-in-node="11">「I accept the terms in the License Agreement（ライセンス契約の条項に同意します）」</strong> にチェックが入れてください。</p>
+<p data-path-to-node="7">開発環境の構築を進めるために、そのまま <strong data-path-to-node="7" data-index-in-node="20">「Next」</strong> ボタンをクリックしてください。</p>
+<p data-path-to-node="3,1"> </p>
+<p data-path-to-node="3,1">↓</p>
+<p data-path-to-node="3,1"> </p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104213226.png" width="613" height="475" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p data-path-to-node="2">インストールする機能を選ぶ画面です。</p>
+<ul data-path-to-node="3">
+<li>
+<p data-path-to-node="3,0,0"><strong data-path-to-node="3,0,0" data-index-in-node="0">Nsight Compute:</strong> ソフトウェア本体です。</p>
+</li>
+<li>
+<p data-path-to-node="3,1,0"><strong data-path-to-node="3,1,0" data-index-in-node="0">Host Application:</strong> このパソコン上で操作するためのアプリです。</p>
+</li>
+<li>
+<p data-path-to-node="3,2,0"><strong data-path-to-node="3,2,0" data-index-in-node="0">Target Files:</strong> 解析を行うために必要なファイル群です。</p>
+</li>
+</ul>
+<p data-path-to-node="4">デフォルトですべて選択されており、必要なディスク容量は約 <strong data-path-to-node="4" data-index-in-node="29">1GB (1045MB)</strong> です。 通常、AI開発や学習用途であれば、このままの内容ですべてインストールするのが正解です。</p>
+<h3 data-path-to-node="5" id="次に行う操作-1">次に行う操作</h3>
+<p data-path-to-node="6">特に設定を変更する必要はありません。 そのまま <strong data-path-to-node="6" data-index-in-node="24">「Next」</strong> をクリックして進めてください。</p>
+<p data-path-to-node="6"> </p>
+<p data-path-to-node="6">↓</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104213426.png" width="618" height="472" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<h3 data-path-to-node="7" id="Ready-to-installインストールの準備完了">Ready to install...（インストールの準備完了）</h3>
+<p data-path-to-node="8">これまでの設定を確認し、実際にファイルを書き込む最終確認画面です。</p>
+<ul data-path-to-node="9">
+<li>
+<p data-path-to-node="9,0,0"><strong data-path-to-node="9,0,0" data-index-in-node="0">「Install」</strong> ボタンをクリックしてください。</p>
+</li>
+</ul>
+<p> </p>
+<p>↓</p>
+<p>インストール中</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104213453.png" width="617" height="468" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104213531.png" width="617" height="479" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p data-path-to-node="7">インストールしようとしているファイルの一部が、現在バックグラウンドで動いているため、上書きできない状態です。</p>
+<ul data-path-to-node="8">
+<li>
+<p data-path-to-node="8,0,0"><strong data-path-to-node="8,0,0" data-index-in-node="0">表示されているアプリ:</strong> <code data-path-to-node="8,0,0" data-index-in-node="12">CrashReporter</code>, <code data-path-to-node="8,0,0" data-index-in-node="27">NVIDIA Nsight Compute</code></p>
+<ul data-path-to-node="8,0,1">
+<li>
+<p data-path-to-node="8,0,1,0,0">おそらく、古いバージョンのNsight Computeが裏で動いているか、<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>のエラー報告ツールなどが動作している状態です。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 data-path-to-node="9" id="どうすればいい"><strong data-index-in-node="0" data-path-to-node="9">どうすればいい？</strong></h4>
+<p data-path-to-node="10">デフォルトで選択されている <strong data-path-to-node="10" data-index-in-node="14">「Close the applications and attempt to restart them.（アプリケーションを閉じて、再起動を試みる）」</strong> のままで大丈夫です。</p>
+<ol start="1" data-path-to-node="11">
+<li>
+<p data-path-to-node="11,0,0"><strong data-path-to-node="11,0,0" data-index-in-node="0">選択肢の意味:</strong></p>
+<ul data-path-to-node="11,0,1">
+<li>
+<p data-path-to-node="11,0,1,0,0"><strong data-path-to-node="11,0,1,0,0" data-index-in-node="0">上（推奨）:</strong> <a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%E9">インストーラ</a>ーが自動で邪魔なアプリ（CrashReporterなど）を強制終了して、インストールを続行します。これならPCの再起動が不要になるケースが多いです。</p>
+</li>
+<li>
+<p data-path-to-node="11,0,1,1,0"><strong data-path-to-node="11,0,1,1,0" data-index-in-node="0">下:</strong> アプリを閉じずに進めますが、インストール完了後に<strong data-path-to-node="11,0,1,1,0" data-index-in-node="27">必ずPCの再起動</strong>が必要になります。</p>
+</li>
+</ul>
+</li>
+<li>
+<p data-path-to-node="11,1,0"><strong data-path-to-node="11,1,0" data-index-in-node="0">アクション:</strong></p>
+<ul data-path-to-node="11,1,1">
+<li>
+<p data-path-to-node="11,1,1,0,0">青い丸（選択）が上の「Close the applications...」にあることを確認して、</p>
+</li>
+<li>
+<p data-path-to-node="11,1,1,1,0"><strong data-path-to-node="11,1,1,1,0" data-index-in-node="0">「OK」</strong> をクリックしてください。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p data-path-to-node="12">これで自動的に競合しているソフトが終了し、インストールが進みます。</p>
+<p data-path-to-node="12"> </p>
+<p data-path-to-node="12">↓</p>
+<p data-path-to-node="12">完了！！</p>
+<p data-path-to-node="12"><strong data-path-to-node="10,2,0" data-index-in-node="6">「Finish」</strong> ボタンをクリック</p>
+<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104213653.png" width="697" height="602" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+<p data-path-to-node="12"> </p>
+<p data-path-to-node="12"> </p>
+<p data-path-to-node="12">次の記事に進みます。</p>
+        </article>
+
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </div>
+</body>
+</html>
