@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【Windows】AI学習に必須なNvidia Nsight Systemsの初期セットアップ方法 | Ayato Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
         /* Blog specific overrides */
@@ -14,16 +17,19 @@
             background-color: #0a0a0a;
             color: #e0e0e0;
         }
+
         .blog-container {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
+
         .blog-header {
             margin-bottom: 40px;
             border-bottom: 1px solid #333;
             padding-bottom: 20px;
         }
+
         .blog-header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -31,15 +37,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .blog-meta {
             color: #888;
             font-size: 0.9rem;
         }
+
         .blog-content {
             font-size: 1.1rem;
             line-height: 1.8;
             color: #d0d0d0;
         }
+
         .blog-content h2 {
             margin-top: 40px;
             margin-bottom: 20px;
@@ -47,19 +56,23 @@
             border-left: 4px solid #fff;
             padding-left: 15px;
         }
+
         .blog-content h3 {
             margin-top: 30px;
             margin-bottom: 15px;
             color: #ddd;
         }
+
         .blog-content p {
             margin-bottom: 20px;
         }
+
         .blog-content img {
             max-width: 100%;
             border-radius: 8px;
             margin: 20px 0;
         }
+
         .blog-content pre {
             background: #1a1a1a;
             padding: 20px;
@@ -68,6 +81,7 @@
             margin: 20px 0;
             border: 1px solid #333;
         }
+
         .back-link {
             display: inline-block;
             margin-top: 40px;
@@ -75,17 +89,24 @@
             text-decoration: none;
             transition: color 0.3s;
         }
+
         .back-link:hover {
             color: #fff;
         }
+
         /* Hatena specific cleanups */
-        .keyword { text-decoration: none; color: inherit; pointer-events: none; }
+        .keyword {
+            text-decoration: none;
+            color: inherit;
+            pointer-events: none;
+        }
     </style>
 </head>
+
 <body>
     <div class="blog-container">
         <a href="../index.html" class="back-link">← Back to Home</a>
-        
+
         <header class="blog-header">
             <h1>【Windows】AI学習に必須なNvidia Nsight Systemsの初期セットアップ方法</h1>
             <div class="blog-meta">
@@ -95,130 +116,265 @@
 
         <article class="blog-content">
             <h3 data-end="201" data-start="184" id="この記事はこんな人向けです">この記事はこんな人向けです</h3>
-<p data-start="203" data-end="302">本記事は、<strong data-start="208" data-end="258"><a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Systems を初めて使う、もしくは使い始めでつまずいている方</strong>を対象としています。<br data-start="268" data-end="271" />特に、以下のような状況に心当たりがある方に向けて書いています。</p>
-<ul data-start="304" data-end="549">
-<li data-start="304" data-end="357">
-<p data-start="306" data-end="357"><a class="keyword" href="https://d.hatena.ne.jp/keyword/Windows">Windows</a> 環境で <strong data-start="318" data-end="357">PyTorch / <a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a> の<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>処理をプロファイリングしたい</strong></p>
-</li>
-<li data-start="358" data-end="470">
-<p data-start="360" data-end="384">Nsight Systems を起動したが、</p>
-<ul data-start="387" data-end="470">
-<li data-start="387" data-end="415">
-<p data-start="389" data-end="415">「最初のダイアログで何を選べばいいかわからない」</p>
-</li>
-<li data-start="418" data-end="440">
-<p data-start="420" data-end="440">「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が動いていないように見える」</p>
-</li>
-<li data-start="443" data-end="470">
-<p data-start="445" data-end="470">「プロファイル結果に<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>のタイムラインが出ない」</p>
-</li>
-</ul>
-</li>
-<li data-start="471" data-end="503">
-<p data-start="473" data-end="503"><strong data-start="473" data-end="503"><a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が遅い原因を調べたいが、設定段階で詰まっている</strong></p>
-</li>
-<li data-start="504" data-end="549">
-<p data-start="506" data-end="549">学習や推論処理において、<strong data-start="518" data-end="549">CPUと<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>のどこが<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>なのかを可視化したい</strong></p>
-</li>
-</ul>
-<p data-start="166" data-end="264">本記事では <strong data-start="172" data-end="197"><a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Systems</strong> を用いた AI ワークロードの初期プロファイリング手順を解説するが、その前提として <strong data-start="240" data-end="252">ツールの役割分担</strong> を明確にしておく。</p>
-<p data-start="166" data-end="264"> </p>
-<p data-start="271" data-end="433">　Nsight Systems は、CPU・<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>・CUDA Runtime・OS スレッドを横断した <strong data-start="322" data-end="361">時系列レベルの全体挙動（どこで時間が失われているか）を可視化するツール</strong>であり、「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が遅いのか」「そもそも<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が使われていないのか」といった <strong data-start="399" data-end="422"><a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>の所在を特定するための入口</strong>に位置づけられる。</p>
-<p data-start="440" data-end="574"> </p>
-<p data-start="440" data-end="574">　一方で <strong data-start="444" data-end="462">Nsight Compute</strong> は、特定の CUDA <a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>に対して <strong data-start="483" data-end="508">命令レベル・メモリアクセスレベルの詳細解析</strong>を行うツールであり、Nsight Systems によって「遅い<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>」が特定された <strong data-start="552" data-end="568">後段で使用することが前提</strong>となる。</p>
-<p data-start="581" data-end="841">　</p>
-<p data-start="581" data-end="841">　また、<a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a> や深層学習<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%D5%A5%EC%A1%BC%A5%E0%A5%EF%A1%BC%A5%AF">フレームワーク</a>（PyTorch / TensorFlow）を用いたワークロードでは、処理の意味的な区切りを可視化するために <strong data-start="658" data-end="700">NVTX（<a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Tools Extension）による<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%CE%A5%C6%A1%BC%A5%B7%A5%E7%A5%F3">アノテーション</a></strong>が極めて重要である。</p>
-<p data-start="581" data-end="841">　</p>
-<p data-start="581" data-end="841">NVTX を用いることで、学習ループ、データロード、推論、前処理といった <strong data-start="752" data-end="772">アプリケーションレベルの処理単位</strong>を Nsight Systems のタイムライン上に明示でき、<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> <a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>と高レベル処理との対応関係を正確に把握できるようになる。</p>
-<p data-start="848" data-end="986"> </p>
-<p data-start="848" data-end="986">　本記事ではまず、<strong data-start="856" data-end="899">NVTX を活用した Nsight Systems による全体プロファイリング</strong>を通じて<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>の位置を特定し、その結果を踏まえて <strong data-start="927" data-end="956">必要に応じて Nsight Compute に進む</strong>という、実務で推奨される解析フローを前提として解説を進める。</p>
-<p data-start="551" data-end="658"><br data-start="609" data-end="612" />本記事の目的は、**「まず正しくプロファイリングを開始できる状態を作ること」**にあります。</p>
-<p data-start="551" data-end="658">逆に、Nsight Systems の詳細な解析理論や、CUDA<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>最適化そのものを解説する記事ではありません。</p>
-<p data-start="660" data-end="731">Nsight Systems を使った <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> プロファイリングの<strong data-start="693" data-end="713">最初の一歩を確実に成功させたい方</strong>は、ぜひこのまま読み進めてください。</p>
-<p data-start="660" data-end="731"> </p>
-<p data-start="660" data-end="731">---</p>
-<h3 id="本編">本編</h3>
-<p data-start="660" data-end="731"> </p>
-<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104205032.png" width="617" height="600" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
-<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190250.png" width="474" height="338" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
-<p>これは Nsight Systems を初めて起動した時に表示される プライバシー設定のダイアログ です。エラーではありません。</p>
-<p>「Yes」 または 「No」 のどちらを選んでも、プロファイリング機能自体には影響しません。</p>
-<p>Yes: 使用状況データを匿名で <a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> に送信（ソフトウェア改善のため）<br />No: データ収集を無効化<br />お好みで選択して、次に進んでください。その後、メインウィンドウが開きます。</p>
-<p> </p>
-<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190301.png" width="645" height="326" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
-<p> </p>
-<p>これは 表示プリセットの選択 です。</p>
-<p>あなたのプロジェクト（PyTorch / BGE-M3 の <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> <a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%AF%A5%BB%A5%E9">アクセラ</a>レーション）では：</p>
-<p>「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> Rows on Top (default)」を選択して「OK」をクリック してください。</p>
-<p>これにより、タイムライン表示で <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> 活動が上部に表示され、<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> の<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>を見つけやすくなります。</p>
-<p>次の画面で、左上の File → New Project から新規プロジェクトを作成するか、Quick Launch から直接アプリケーションを起動できます。</p>
-<p> </p>
-<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190235.png" width="1200" height="708" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
-<p> </p>
-<p>Nsight Systems のメイン画面が開きました。次の手順で <a class="keyword" href="https://d.hatena.ne.jp/keyword/Python">Python</a> アプリケーションを設定します：</p>
-<p>📋 設定手順<br />「Select」をクリック（"OK220268 (<a class="keyword" href="https://d.hatena.ne.jp/keyword/localhost">localhost</a>) target available" の横）<br />表示されるオプションパネルで以下を設定：</p>
-<p> </p>
-<p>Application Executable:<br />C:\Users\.....\.venv\Scripts\<a class="keyword" href="https://d.hatena.ne.jp/keyword/python">python</a>.exe</p>
-<p>Working Directory:<br />C:\Users\....\{対象<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%C7%A5%A3%A5%EC%A5%AF%A5%C8">ディレクト</a>リ}</p>
-<p>Command Line Arguments:<br />nikkei225_test\main.py --year 2024 --test --no-market</p>
-<p> </p>
-<p>「Start」ボタン をクリックしてプロファイリングを開始</p>
-<p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104204311.png" width="1200" height="704" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
-<p class="!mb-0 mt-0" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">設定画面が開きました。以下を入力してください：</p>
-<h2 id="-入力項目" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: bold; margin: 0.5rem 0px 0.8em; color: #000000; line-height: 1.4; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">📝 入力項目</h2>
-<h3 id="1-Command-line-with-arguments" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">1. Command line with arguments</h3>
-<p class="!mb-0 mt-0" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">「...」ボタンをクリックして以下を入力：</p>
-<div style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
-<div class="min-h-7 relative box-border flex flex-row items-center justify-between rounded-t border border-b-0 border-gray-500/25 px-2 py-0.5" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 1px 0px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; display: flex; min-height: 1.75rem; flex-direction: row; align-items: center; justify-content: space-between; border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; padding: 0.125rem 0.5rem;">
-<div class="font-sans text-sm text-ide-text-color opacity-60" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 0.75rem; color: #616161; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-<div style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
-<div class="flex flex-row items-center gap-0.5" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 0.125rem; border: 0px solid #c0c1c6;">
-<div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-<div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-</div>
-</div>
-</div>
-<div class="relative overflow-hidden rounded-b border-x border-b border-gray-500/25 bg-ide-editor-background p-2" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 0px 1px 1px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; overflow: hidden; border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; background-color: #ffffff; padding: 0.5rem;" aria-label="highlighted-code-">
-<div class="w-full h-full text-xs cursor-text" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; height: 36.7px; width: 428.6px; cursor: text; font-size: 0.688rem; border: 0px solid #c0c1c6;">
-<div class="code-block" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: monospace; font-size: inherit; border: 0px solid #c0c1c6;">
-<div class="code-line" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; min-height: 1.2em; border: 0px solid #c0c1c6;" data-line-number="1" data-line-start="1" data-line-end="1">
-<div class="line-content" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; flex: 1 1 0%; white-space: pre-wrap; word-break: break-word; border: 0px solid #c0c1c6;"><span class="mtk1" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; color: #000000; border: 0px solid #c0c1c6;">C:\Users\.\.\.venv\Scripts\<a class="keyword" href="https://d.hatena.ne.jp/keyword/python">python</a>.exe nikkei225_test\main.py --year 2024 --test --no-market</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<h3 id="2-Working-directory" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">2. Working directory</h3>
-<div style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
-<div class="min-h-7 relative box-border flex flex-row items-center justify-between rounded-t border border-b-0 border-gray-500/25 px-2 py-0.5" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 1px 0px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; display: flex; min-height: 1.75rem; flex-direction: row; align-items: center; justify-content: space-between; border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; padding: 0.125rem 0.5rem;">
-<div class="font-sans text-sm text-ide-text-color opacity-60" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 0.75rem; color: #616161; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-<div style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
-<div class="flex flex-row items-center gap-0.5" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 0.125rem; border: 0px solid #c0c1c6;">
-<div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-<div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;"> </div>
-</div>
-</div>
-</div>
-<div class="relative overflow-hidden rounded-b border-x border-b border-gray-500/25 bg-ide-editor-background p-2" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 0px 1px 1px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; overflow: hidden; border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; background-color: #ffffff; padding: 0.5rem;" aria-label="highlighted-code-">
-<div class="w-full h-full text-xs cursor-text" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; height: 18.35px; width: 428.6px; cursor: text; font-size: 0.688rem; border: 0px solid #c0c1c6;">
-<div class="code-block" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: monospace; font-size: inherit; border: 0px solid #c0c1c6;">
-<div class="code-line" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; min-height: 1.2em; border: 0px solid #c0c1c6;" data-line-number="1" data-line-start="1" data-line-end="1">
-<div class="line-content" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; flex: 1 1 0%; white-space: pre-wrap; word-break: break-word; border: 0px solid #c0c1c6;"><span class="mtk1" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; color: #000000; border: 0px solid #c0c1c6;">C:\Users\..\code #適切な<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%C7%A5%A3%A5%EC%A5%AF%A5%C8">ディレクト</a>リを指定してください。</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<h3 id="3-️-重要-CUDA-トレースを有効化" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">3. ⚠️ 重要: CUDA トレースを有効化</h3>
-<p class="!mb-0 mt-0" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">画面下部の <strong style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-weight: 600; color: inherit; border: 0px solid #c0c1c6;">「Collect CUDA trace」</strong> にチェックを入れてください！ （これがないと<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>活動が記録されません）</p>
-<h3 id="4-Start" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">4. Start</h3>
-<p class="!mb-0 mt-0" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">右上の「Start」ボタンをクリック</p>
-<hr style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 0px 0px; border-style: solid; border-color: #e5e7eb; height: 0px; color: #374151; margin: 2.85714em 0px; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;" />
-<p class="!mb-0 mt-0" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">初期設定では「Collect CUDA trace」のチェックが<strong style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-weight: 600; color: inherit; border: 0px solid #c0c1c6;">外れています</strong>ので、必ずチェックを入れてから実行してください。</p>
-<p><br />のちは適宜、生成AIを頼ってください。</p>
+            <p data-start="203" data-end="302">本記事は、<strong data-start="208" data-end="258"><a class="keyword"
+                        href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Systems
+                    を初めて使う、もしくは使い始めでつまずいている方</strong>を対象としています。<br data-start="268"
+                    data-end="271" />特に、以下のような状況に心当たりがある方に向けて書いています。</p>
+            <ul data-start="304" data-end="549">
+                <li data-start="304" data-end="357">
+                    <p data-start="306" data-end="357"><a class="keyword"
+                            href="https://d.hatena.ne.jp/keyword/Windows">Windows</a> 環境で <strong data-start="318"
+                            data-end="357">PyTorch / <a class="keyword"
+                                href="https://d.hatena.ne.jp/keyword/Python">Python</a> の<a class="keyword"
+                                href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>処理をプロファイリングしたい</strong></p>
+                </li>
+                <li data-start="358" data-end="470">
+                    <p data-start="360" data-end="384">Nsight Systems を起動したが、</p>
+                    <ul data-start="387" data-end="470">
+                        <li data-start="387" data-end="415">
+                            <p data-start="389" data-end="415">「最初のダイアログで何を選べばいいかわからない」</p>
+                        </li>
+                        <li data-start="418" data-end="440">
+                            <p data-start="420" data-end="440">「<a class="keyword"
+                                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が動いていないように見える」</p>
+                        </li>
+                        <li data-start="443" data-end="470">
+                            <p data-start="445" data-end="470">「プロファイル結果に<a class="keyword"
+                                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>のタイムラインが出ない」</p>
+                        </li>
+                    </ul>
+                </li>
+                <li data-start="471" data-end="503">
+                    <p data-start="473" data-end="503"><strong data-start="473" data-end="503"><a class="keyword"
+                                href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が遅い原因を調べたいが、設定段階で詰まっている</strong></p>
+                </li>
+                <li data-start="504" data-end="549">
+                    <p data-start="506" data-end="549">学習や推論処理において、<strong data-start="518" data-end="549">CPUと<a
+                                class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>のどこが<a class="keyword"
+                                href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>なのかを可視化したい</strong>
+                    </p>
+                </li>
+            </ul>
+            <p data-start="166" data-end="264">本記事では <strong data-start="172" data-end="197"><a class="keyword"
+                        href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Nsight Systems</strong> を用いた AI
+                ワークロードの初期プロファイリング手順を解説するが、その前提として <strong data-start="240" data-end="252">ツールの役割分担</strong> を明確にしておく。
+            </p>
+            <p data-start="166" data-end="264"> </p>
+            <p data-start="271" data-end="433">　Nsight Systems は、CPU・<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>・CUDA Runtime・OS スレッドを横断した <strong data-start="322"
+                    data-end="361">時系列レベルの全体挙動（どこで時間が失われているか）を可視化するツール</strong>であり、「<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が遅いのか」「そもそも<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>が使われていないのか」といった <strong data-start="399"
+                    data-end="422"><a class="keyword"
+                        href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>の所在を特定するための入口</strong>に位置づけられる。
+            </p>
+            <p data-start="440" data-end="574"> </p>
+            <p data-start="440" data-end="574">　一方で <strong data-start="444" data-end="462">Nsight Compute</strong>
+                は、特定の CUDA <a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>に対して <strong data-start="483"
+                    data-end="508">命令レベル・メモリアクセスレベルの詳細解析</strong>を行うツールであり、Nsight Systems によって「遅い<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>」が特定された <strong
+                    data-start="552" data-end="568">後段で使用することが前提</strong>となる。</p>
+            <p data-start="581" data-end="841">　</p>
+            <p data-start="581" data-end="841">　また、<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/Python">Python</a> や深層学習<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%D5%A5%EC%A1%BC%A5%E0%A5%EF%A1%BC%A5%AF">フレームワーク</a>（PyTorch
+                / TensorFlow）を用いたワークロードでは、処理の意味的な区切りを可視化するために <strong data-start="658" data-end="700">NVTX（<a
+                        class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a> Tools Extension）による<a
+                        class="keyword"
+                        href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%CE%A5%C6%A1%BC%A5%B7%A5%E7%A5%F3">アノテーション</a></strong>が極めて重要である。
+            </p>
+            <p data-start="581" data-end="841">　</p>
+            <p data-start="581" data-end="841">NVTX を用いることで、学習ループ、データロード、推論、前処理といった <strong data-start="752"
+                    data-end="772">アプリケーションレベルの処理単位</strong>を Nsight Systems のタイムライン上に明示でき、<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> <a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>と高レベル処理との対応関係を正確に把握できるようになる。
+            </p>
+            <p data-start="848" data-end="986"> </p>
+            <p data-start="848" data-end="986">　本記事ではまず、<strong data-start="856" data-end="899">NVTX を活用した Nsight
+                    Systems による全体プロファイリング</strong>を通じて<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>の位置を特定し、その結果を踏まえて
+                <strong data-start="927" data-end="956">必要に応じて Nsight Compute に進む</strong>という、実務で推奨される解析フローを前提として解説を進める。
+            </p>
+            <p data-start="551" data-end="658"><br data-start="609"
+                    data-end="612" />本記事の目的は、**「まず正しくプロファイリングを開始できる状態を作ること」**にあります。</p>
+            <p data-start="551" data-end="658">逆に、Nsight Systems の詳細な解析理論や、CUDA<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%AB%A1%BC%A5%CD%A5%EB">カーネル</a>最適化そのものを解説する記事ではありません。</p>
+            <p data-start="660" data-end="731">Nsight Systems を使った <a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> プロファイリングの<strong data-start="693"
+                    data-end="713">最初の一歩を確実に成功させたい方</strong>は、ぜひこのまま読み進めてください。</p>
+            <p data-start="660" data-end="731"> </p>
+            <p data-start="660" data-end="731">---</p>
+            <h3 id="本編">本編</h3>
+            <p data-start="660" data-end="731"> </p>
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104205032.png"
+                    width="617" height="600" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190250.png"
+                    width="474" height="338" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+            <p>これは Nsight Systems を初めて起動した時に表示される プライバシー設定のダイアログ です。エラーではありません。</p>
+            <p>「Yes」 または 「No」 のどちらを選んでも、プロファイリング機能自体には影響しません。</p>
+            <p>Yes: 使用状況データを匿名で <a class="keyword" href="https://d.hatena.ne.jp/keyword/NVIDIA">NVIDIA</a>
+                に送信（ソフトウェア改善のため）<br />No: データ収集を無効化<br />お好みで選択して、次に進んでください。その後、メインウィンドウが開きます。</p>
+            <p> </p>
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190301.png"
+                    width="645" height="326" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+            <p> </p>
+            <p>これは 表示プリセットの選択 です。</p>
+            <p>あなたのプロジェクト（PyTorch / BGE-M3 の <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> <a
+                    class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%A2%A5%AF%A5%BB%A5%E9">アクセラ</a>レーション）では：</p>
+            <p>「<a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> Rows on Top
+                (default)」を選択して「OK」をクリック してください。</p>
+            <p>これにより、タイムライン表示で <a class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> 活動が上部に表示され、<a
+                    class="keyword" href="https://d.hatena.ne.jp/keyword/GPU">GPU</a> の<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%DC%A5%C8%A5%EB%A5%CD%A5%C3%A5%AF">ボトルネック</a>を見つけやすくなります。
+            </p>
+            <p>次の画面で、左上の File → New Project から新規プロジェクトを作成するか、Quick Launch から直接アプリケーションを起動できます。</p>
+            <p> </p>
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104190235.png"
+                    width="1200" height="708" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+            <p> </p>
+            <p>Nsight Systems のメイン画面が開きました。次の手順で <a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/Python">Python</a> アプリケーションを設定します：</p>
+            <p>📋 設定手順<br />「Select」をクリック（"OK220268 (<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/localhost">localhost</a>) target available"
+                の横）<br />表示されるオプションパネルで以下を設定：</p>
+            <p> </p>
+            <p>Application Executable:<br />C:\Users\.....\.venv\Scripts\<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/python">python</a>.exe</p>
+            <p>Working Directory:<br />C:\Users\....\{対象<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/%A5%C7%A5%A3%A5%EC%A5%AF%A5%C8">ディレクト</a>リ}</p>
+            <p>Command Line Arguments:<br />nikkei225_test\main.py --year 2024 --test --no-market</p>
+            <p> </p>
+            <p>「Start」ボタン をクリックしてプロファイリングを開始</p>
+            <p><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/a/ai-economy-analysis/20260104/20260104204311.png"
+                    width="1200" height="704" loading="lazy" title="" class="hatena-fotolife" itemprop="image" /></p>
+            <p class="!mb-0 mt-0"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                設定画面が開きました。以下を入力してください：</p>
+            <h2 id="-入力項目"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: bold; margin: 0.5rem 0px 0.8em; color: #000000; line-height: 1.4; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                📝 入力項目</h2>
+            <h3 id="1-Command-line-with-arguments"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                1. Command line with arguments</h3>
+            <p class="!mb-0 mt-0"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                「...」ボタンをクリックして以下を入力：</p>
+            <div
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
+                <div class="min-h-7 relative box-border flex flex-row items-center justify-between rounded-t border border-b-0 border-gray-500/25 px-2 py-0.5"
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 1px 0px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; display: flex; min-height: 1.75rem; flex-direction: row; align-items: center; justify-content: space-between; border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; padding: 0.125rem 0.5rem;">
+                    <div class="font-sans text-sm text-ide-text-color opacity-60"
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 0.75rem; color: #616161; opacity: 0.6; border: 0px solid #c0c1c6;">
+                         </div>
+                    <div
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
+                        <div class="flex flex-row items-center gap-0.5"
+                            style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 0.125rem; border: 0px solid #c0c1c6;">
+                            <div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;">
+                                 </div>
+                            <div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;">
+                                 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-b border-x border-b border-gray-500/25 bg-ide-editor-background p-2"
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 0px 1px 1px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; overflow: hidden; border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; background-color: #ffffff; padding: 0.5rem;"
+                    aria-label="highlighted-code-">
+                    <div class="w-full h-full text-xs cursor-text"
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; height: 36.7px; width: 428.6px; cursor: text; font-size: 0.688rem; border: 0px solid #c0c1c6;">
+                        <div class="code-block"
+                            style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: monospace; font-size: inherit; border: 0px solid #c0c1c6;">
+                            <div class="code-line"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; min-height: 1.2em; border: 0px solid #c0c1c6;"
+                                data-line-number="1" data-line-start="1" data-line-end="1">
+                                <div class="line-content"
+                                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; flex: 1 1 0%; white-space: pre-wrap; word-break: break-word; border: 0px solid #c0c1c6;">
+                                    <span class="mtk1"
+                                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; color: #000000; border: 0px solid #c0c1c6;">C:\Users\.\.\.venv\Scripts\<a
+                                            class="keyword" href="https://d.hatena.ne.jp/keyword/python">python</a>.exe
+                                        nikkei225_test\main.py --year 2024 --test --no-market</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 id="2-Working-directory"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                2. Working directory</h3>
+            <div
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
+                <div class="min-h-7 relative box-border flex flex-row items-center justify-between rounded-t border border-b-0 border-gray-500/25 px-2 py-0.5"
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 1px 0px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; display: flex; min-height: 1.75rem; flex-direction: row; align-items: center; justify-content: space-between; border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; padding: 0.125rem 0.5rem;">
+                    <div class="font-sans text-sm text-ide-text-color opacity-60"
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 0.75rem; color: #616161; opacity: 0.6; border: 0px solid #c0c1c6;">
+                         </div>
+                    <div
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border: 0px solid #c0c1c6;">
+                        <div class="flex flex-row items-center gap-0.5"
+                            style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 0.125rem; border: 0px solid #c0c1c6;">
+                            <div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;">
+                                 </div>
+                            <div class="rounded-sm p-1 cursor-pointer opacity-60 hover:bg-gray-500/25 hover:opacity-100"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; cursor: pointer; border-radius: 0.125rem; padding: 0.25rem; opacity: 0.6; border: 0px solid #c0c1c6;">
+                                 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-b border-x border-b border-gray-500/25 bg-ide-editor-background p-2"
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 0px 1px 1px; border-style: solid; border-color: rgba(129, 131, 142, 0.25); position: relative; overflow: hidden; border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; background-color: #ffffff; padding: 0.5rem;"
+                    aria-label="highlighted-code-">
+                    <div class="w-full h-full text-xs cursor-text"
+                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; height: 18.35px; width: 428.6px; cursor: text; font-size: 0.688rem; border: 0px solid #c0c1c6;">
+                        <div class="code-block"
+                            style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-family: monospace; font-size: inherit; border: 0px solid #c0c1c6;">
+                            <div class="code-line"
+                                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; display: flex; min-height: 1.2em; border: 0px solid #c0c1c6;"
+                                data-line-number="1" data-line-start="1" data-line-end="1">
+                                <div class="line-content"
+                                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; flex: 1 1 0%; white-space: pre-wrap; word-break: break-word; border: 0px solid #c0c1c6;">
+                                    <span class="mtk1"
+                                        style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; color: #000000; border: 0px solid #c0c1c6;">C:\Users\..\code
+                                        #適切な<a class="keyword"
+                                            href="https://d.hatena.ne.jp/keyword/%A5%C7%A5%A3%A5%EC%A5%AF%A5%C8">ディレクト</a>リを指定してください。</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 id="3-️-重要-CUDA-トレースを有効化"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                3. ⚠️ 重要: CUDA トレースを有効化</h3>
+            <p class="!mb-0 mt-0"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                画面下部の <strong
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-weight: 600; color: inherit; border: 0px solid #c0c1c6;">「Collect
+                    CUDA trace」</strong> にチェックを入れてください！ （これがないと<a class="keyword"
+                    href="https://d.hatena.ne.jp/keyword/GPU">GPU</a>活動が記録されません）</p>
+            <h3 id="4-Start"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0px 0.444444em; color: #000000; line-height: 1.55556; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                4. Start</h3>
+            <p class="!mb-0 mt-0"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                右上の「Start」ボタンをクリック</p>
+            <hr
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; border-width: 1px 0px 0px; border-style: solid; border-color: #e5e7eb; height: 0px; color: #374151; margin: 2.85714em 0px; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;" />
+            <p class="!mb-0 mt-0"
+                style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; margin: 0px 0px 0.75rem; display: block; font-size: 0.813rem; line-height: 1.5; color: #616161; font-family: 'Segoe WPC', 'Segoe UI', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f3f3f3; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; border: 0px solid #c0c1c6;">
+                初期設定では「Collect CUDA trace」のチェックが<strong
+                    style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-scroll-snap-strictness: proximity; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(67, 128, 180, 0.5); --tw-ring-offset-shadow: 0 0 rgba(0,0,0,0); --tw-ring-shadow: 0 0 rgba(0,0,0,0); --tw-shadow: 0 0 rgba(0,0,0,0); --tw-shadow-colored: 0 0 rgba(0,0,0,0); box-sizing: border-box; font-weight: 600; color: inherit; border: 0px solid #c0c1c6;">外れています</strong>ので、必ずチェックを入れてから実行してください。
+            </p>
+            <p><br />のちは適宜、生成AIを頼ってください。</p>
         </article>
 
         <a href="../index.html" class="back-link">← Back to Home</a>
     </div>
+    <script src="../config.js"></script>
+    <script src="../script.js"></script>
 </body>
+
 </html>

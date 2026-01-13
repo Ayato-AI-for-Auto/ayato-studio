@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【2025年の総まとめ】ChatGPT・Gemini・Claude ― AIエンジニア視点で整理する「最適な役割分担」 | Ayato Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
         /* Blog specific overrides */
@@ -14,16 +17,19 @@
             background-color: #0a0a0a;
             color: #e0e0e0;
         }
+
         .blog-container {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
+
         .blog-header {
             margin-bottom: 40px;
             border-bottom: 1px solid #333;
             padding-bottom: 20px;
         }
+
         .blog-header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -31,15 +37,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .blog-meta {
             color: #888;
             font-size: 0.9rem;
         }
+
         .blog-content {
             font-size: 1.1rem;
             line-height: 1.8;
             color: #d0d0d0;
         }
+
         .blog-content h2 {
             margin-top: 40px;
             margin-bottom: 20px;
@@ -47,19 +56,23 @@
             border-left: 4px solid #fff;
             padding-left: 15px;
         }
+
         .blog-content h3 {
             margin-top: 30px;
             margin-bottom: 15px;
             color: #ddd;
         }
+
         .blog-content p {
             margin-bottom: 20px;
         }
+
         .blog-content img {
             max-width: 100%;
             border-radius: 8px;
             margin: 20px 0;
         }
+
         .blog-content pre {
             background: #1a1a1a;
             padding: 20px;
@@ -68,6 +81,7 @@
             margin: 20px 0;
             border: 1px solid #333;
         }
+
         .back-link {
             display: inline-block;
             margin-top: 40px;
@@ -75,17 +89,24 @@
             text-decoration: none;
             transition: color 0.3s;
         }
+
         .back-link:hover {
             color: #fff;
         }
+
         /* Hatena specific cleanups */
-        .keyword { text-decoration: none; color: inherit; pointer-events: none; }
+        .keyword {
+            text-decoration: none;
+            color: inherit;
+            pointer-events: none;
+        }
     </style>
 </head>
+
 <body>
     <div class="blog-container">
         <a href="../index.html" class="back-link">← Back to Home</a>
-        
+
         <header class="blog-header">
             <h1>【2025年の総まとめ】ChatGPT・Gemini・Claude ― AIエンジニア視点で整理する「最適な役割分担」</h1>
             <div class="blog-meta">
@@ -95,154 +116,180 @@
 
         <article class="blog-content">
             <p> </p>
-<style>
-    body {
-        font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-        line-height: 1.8;
-        color: #333;
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 24px;
-        background-color: #f9fafb;
-    }
-    article {
-        background: #ffffff;
-        padding: 44px;
-        border-radius: 10px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-    }
-    h1 {
-        font-size: 28px;
-        border-bottom: 3px solid #2563eb;
-        padding-bottom: 16px;
-        margin-bottom: 24px;
-    }
-    h2 {
-        font-size: 23px;
-        margin-top: 48px;
-        padding-left: 12px;
-        border-left: 5px solid #2563eb;
-        background: #eff6ff;
-    }
-    h3 {
-        font-size: 19px;
-        margin-top: 32px;
-        font-weight: bold;
-    }
-    p {
-        font-size: 16px;
-        margin-bottom: 18px;
-    }
-    ul, ol {
-        margin-left: 20px;
-        margin-bottom: 20px;
-    }
-    li {
-        margin-bottom: 10px;
-    }
-    .note {
-        background: #f1f5f9;
-        border-left: 5px solid #64748b;
-        padding: 16px;
-        margin: 28px 0;
-        font-size: 15px;
-    }
-    .highlight {
-        background: linear-gradient(transparent 65%, #fff59d 65%);
-        font-weight: bold;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 30px 0;
-        font-size: 15px;
-    }
-    th, td {
-        border: 1px solid #e5e7eb;
-        padding: 12px;
-    }
-    th {
-        background: #f8fafc;
-        font-weight: bold;
-    }
-</style>
-<article><header>
-<p style="font-size: 14px; color: #666;">AI活用設計 / 2026.01 Update</p>
-<h1 id="2025年の総まとめChatGPTGeminiClaude--AIエンジニア視点で整理する最適な役割分担">【2025年の総まとめ】ChatGPT・Gemini・Claude ― AIエンジニア視点で整理する「最適な役割分担」</h1>
-</header>
-<section>
-<p>本記事は、ChatGPT・Gemini・Claudeの<strong>機能一覧や操作方法を解説する記事ではありません</strong>。</p>
-<p>※本記事は2025年末時点の実務観測に基づく整理です</p>
-<p>私自身、実務で生成AIを日常的に使い続ける中で強く感じたのは、 <strong>「どのAIが一番賢いか」よりも、「どのAIに何を任せるか」</strong>の方が圧倒的に重要だという事実です。</p>
-<div class="note"><strong>対象読者：</strong><br />・生成AIを使い始めたばかりだが、仕事で本格活用したい人<br />・「どれか一つ選べばいい」と考えている人<br />・AIを使い始めたばかりの実務初心者</div>
-</section>
-<section>
-<h2 id="1-万能AIを探すのが間違いな理由">1. 「万能AI」を探すのが間違いな理由</h2>
-<p>2026年現在、性能比較で「最強のAI」を決めることに意味はありません。 理由はシンプルで、<strong>各モデルは明確に設計思想が異なる</strong>からです。</p>
-<p>これは人材配置と同じです。 <strong>戦略立案・実装・事務処理を一人に任せない</strong>のと同様、AIにも役割分担が必要です。</p>
-</section>
-<section>
-<h2 id="2-3大AIモデルの役割整理実務ベース">2. 3大AIモデルの役割整理（実務ベース）</h2>
-<table>
-<thead>
-<tr>
-<th>AI</th>
-<th>実務での主な役割</th>
-<th>擬人化</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ChatGPT</strong></td>
-<td>抽象化・構造化・深い思考</td>
-<td>博識な教授／戦略コンサル</td>
-</tr>
-<tr>
-<td><strong>Claude Opus</strong></td>
-<td>高品質な実装・設計重視のコード生成</td>
-<td>熟練エンジニア</td>
-</tr>
-<tr>
-<td><strong>Gemini</strong></td>
-<td>業務連携・資料処理・情報整理</td>
-<td>優秀な秘書</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ChatGPT思考の深さと抽象化">ChatGPT：思考の深さと抽象化</h3>
-<p>ChatGPTは、<span class="highlight">「なぜそうするのか」を掘り下げる能力</span>が非常に高い。 要件定義、設計レビュー、学習用途では最初に投げる相手です。</p>
-<h3 id="Claudeコード品質という価値">Claude：コード品質という価値</h3>
-<p>Claudeの強みは、動くコードではなく<strong>「壊れにくいコード」</strong>。 保守性・責務分離・可読性といった、経験が必要な観点を自然に満たします。</p>
-<h3 id="Geminiエコシステムの力">Gemini：エコシステムの力</h3>
-<p>Gemini単体の推論性能よりも、<a class="keyword" href="https://d.hatena.ne.jp/keyword/Google">Google</a> WorkspaceやNotebookLMとの連携が本質的価値です。 <strong>業務効率化という観点では最も費用対効果が高い</strong>ケースも多い。</p>
-</section>
-<section>
-<h2 id="3-初心者におすすめの考え方重要">3. 初心者におすすめの考え方（重要）</h2>
-<p>初心者が陥りがちな誤解は、 <strong>「一番賢いAIを選べば解決する」</strong>という発想です。</p>
-<p>正しくはこうです。</p>
-<div class="note"><strong>AIはツールではなく、役割を持った外注パートナーである</strong></div>
-<p>この視点を持てるかどうかが、 「AIを使う人」と「AIで成果を出す人」の分岐点になります。</p>
-</section>
-<section>
-<h2 id="4-実務で使えるAIリレー設計">4. 実務で使える「AIリレー」設計</h2>
-<ol>
-<li><strong>設計・思考：</strong> ChatGPTで要件定義・論点整理</li>
-<li><strong>実装：</strong> Claudeでコード生成・修正</li>
-<li><strong>共有：</strong> Gemini / NotebookLMでナレッジ化</li>
-</ol>
-<p>この分業構造は、個人開発からチーム開発までスケールします。</p>
-</section>
-<section>
-<h2 id="5-なぜ統合AIサービスだけに頼るべきではないのか">5. なぜ統合AIサービスだけに頼るべきではないのか</h2>
-<p>統合プラットフォームは便利ですが、 <strong>「思考・実行・連携」という本質的機能が制限される</strong>ケースが多い。</p>
-<p>月額コストを抑える代わりに、 <strong>時間と品質という最も高価な資源を失う</strong>可能性がある点は理解すべきです。</p>
-</section>
-<footer>
-<p style="font-size: 14px; color: #555;">本記事は、エンジニアとしての実務経験に基づき、 <strong>初心者が最初に持つべき「判断軸」</strong>を整理することを目的としています。</p>
-</footer></article>
+            <style>
+                body {
+                    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+                    line-height: 1.8;
+                    color: #333;
+                    max-width: 860px;
+                    margin: 0 auto;
+                    padding: 24px;
+                    background-color: #f9fafb;
+                }
+
+                article {
+                    background: #ffffff;
+                    padding: 44px;
+                    border-radius: 10px;
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+                }
+
+                h1 {
+                    font-size: 28px;
+                    border-bottom: 3px solid #2563eb;
+                    padding-bottom: 16px;
+                    margin-bottom: 24px;
+                }
+
+                h2 {
+                    font-size: 23px;
+                    margin-top: 48px;
+                    padding-left: 12px;
+                    border-left: 5px solid #2563eb;
+                    background: #eff6ff;
+                }
+
+                h3 {
+                    font-size: 19px;
+                    margin-top: 32px;
+                    font-weight: bold;
+                }
+
+                p {
+                    font-size: 16px;
+                    margin-bottom: 18px;
+                }
+
+                ul,
+                ol {
+                    margin-left: 20px;
+                    margin-bottom: 20px;
+                }
+
+                li {
+                    margin-bottom: 10px;
+                }
+
+                .note {
+                    background: #f1f5f9;
+                    border-left: 5px solid #64748b;
+                    padding: 16px;
+                    margin: 28px 0;
+                    font-size: 15px;
+                }
+
+                .highlight {
+                    background: linear-gradient(transparent 65%, #fff59d 65%);
+                    font-weight: bold;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 30px 0;
+                    font-size: 15px;
+                }
+
+                th,
+                td {
+                    border: 1px solid #e5e7eb;
+                    padding: 12px;
+                }
+
+                th {
+                    background: #f8fafc;
+                    font-weight: bold;
+                }
+            </style>
+            <article>
+                <header>
+                    <p style="font-size: 14px; color: #666;">AI活用設計 / 2026.01 Update</p>
+                    <h1 id="2025年の総まとめChatGPTGeminiClaude--AIエンジニア視点で整理する最適な役割分担">【2025年の総まとめ】ChatGPT・Gemini・Claude ―
+                        AIエンジニア視点で整理する「最適な役割分担」</h1>
+                </header>
+                <section>
+                    <p>本記事は、ChatGPT・Gemini・Claudeの<strong>機能一覧や操作方法を解説する記事ではありません</strong>。</p>
+                    <p>※本記事は2025年末時点の実務観測に基づく整理です</p>
+                    <p>私自身、実務で生成AIを日常的に使い続ける中で強く感じたのは、 <strong>「どのAIが一番賢いか」よりも、「どのAIに何を任せるか」</strong>の方が圧倒的に重要だという事実です。
+                    </p>
+                    <div class="note">
+                        <strong>対象読者：</strong><br />・生成AIを使い始めたばかりだが、仕事で本格活用したい人<br />・「どれか一つ選べばいい」と考えている人<br />・AIを使い始めたばかりの実務初心者
+                    </div>
+                </section>
+                <section>
+                    <h2 id="1-万能AIを探すのが間違いな理由">1. 「万能AI」を探すのが間違いな理由</h2>
+                    <p>2026年現在、性能比較で「最強のAI」を決めることに意味はありません。 理由はシンプルで、<strong>各モデルは明確に設計思想が異なる</strong>からです。</p>
+                    <p>これは人材配置と同じです。 <strong>戦略立案・実装・事務処理を一人に任せない</strong>のと同様、AIにも役割分担が必要です。</p>
+                </section>
+                <section>
+                    <h2 id="2-3大AIモデルの役割整理実務ベース">2. 3大AIモデルの役割整理（実務ベース）</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>AI</th>
+                                <th>実務での主な役割</th>
+                                <th>擬人化</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ChatGPT</strong></td>
+                                <td>抽象化・構造化・深い思考</td>
+                                <td>博識な教授／戦略コンサル</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Claude Opus</strong></td>
+                                <td>高品質な実装・設計重視のコード生成</td>
+                                <td>熟練エンジニア</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gemini</strong></td>
+                                <td>業務連携・資料処理・情報整理</td>
+                                <td>優秀な秘書</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="ChatGPT思考の深さと抽象化">ChatGPT：思考の深さと抽象化</h3>
+                    <p>ChatGPTは、<span class="highlight">「なぜそうするのか」を掘り下げる能力</span>が非常に高い。 要件定義、設計レビュー、学習用途では最初に投げる相手です。
+                    </p>
+                    <h3 id="Claudeコード品質という価値">Claude：コード品質という価値</h3>
+                    <p>Claudeの強みは、動くコードではなく<strong>「壊れにくいコード」</strong>。 保守性・責務分離・可読性といった、経験が必要な観点を自然に満たします。</p>
+                    <h3 id="Geminiエコシステムの力">Gemini：エコシステムの力</h3>
+                    <p>Gemini単体の推論性能よりも、<a class="keyword" href="https://d.hatena.ne.jp/keyword/Google">Google</a>
+                        WorkspaceやNotebookLMとの連携が本質的価値です。 <strong>業務効率化という観点では最も費用対効果が高い</strong>ケースも多い。</p>
+                </section>
+                <section>
+                    <h2 id="3-初心者におすすめの考え方重要">3. 初心者におすすめの考え方（重要）</h2>
+                    <p>初心者が陥りがちな誤解は、 <strong>「一番賢いAIを選べば解決する」</strong>という発想です。</p>
+                    <p>正しくはこうです。</p>
+                    <div class="note"><strong>AIはツールではなく、役割を持った外注パートナーである</strong></div>
+                    <p>この視点を持てるかどうかが、 「AIを使う人」と「AIで成果を出す人」の分岐点になります。</p>
+                </section>
+                <section>
+                    <h2 id="4-実務で使えるAIリレー設計">4. 実務で使える「AIリレー」設計</h2>
+                    <ol>
+                        <li><strong>設計・思考：</strong> ChatGPTで要件定義・論点整理</li>
+                        <li><strong>実装：</strong> Claudeでコード生成・修正</li>
+                        <li><strong>共有：</strong> Gemini / NotebookLMでナレッジ化</li>
+                    </ol>
+                    <p>この分業構造は、個人開発からチーム開発までスケールします。</p>
+                </section>
+                <section>
+                    <h2 id="5-なぜ統合AIサービスだけに頼るべきではないのか">5. なぜ統合AIサービスだけに頼るべきではないのか</h2>
+                    <p>統合プラットフォームは便利ですが、 <strong>「思考・実行・連携」という本質的機能が制限される</strong>ケースが多い。</p>
+                    <p>月額コストを抑える代わりに、 <strong>時間と品質という最も高価な資源を失う</strong>可能性がある点は理解すべきです。</p>
+                </section>
+                <footer>
+                    <p style="font-size: 14px; color: #555;">本記事は、エンジニアとしての実務経験に基づき、
+                        <strong>初心者が最初に持つべき「判断軸」</strong>を整理することを目的としています。</p>
+                </footer>
+            </article>
         </article>
 
         <a href="../index.html" class="back-link">← Back to Home</a>
     </div>
+    <script src="../config.js"></script>
+    <script src="../script.js"></script>
 </body>
+
 </html>

@@ -37,6 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // --- GA4 Tracking Implementation ---
+        if (CONFIG.GA_TRACKING_ID && CONFIG.GA_TRACKING_ID !== "G-XXXXXXXXXX") {
+            const gtagScript = document.createElement('script');
+            gtagScript.async = true;
+            gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA_TRACKING_ID}`;
+            document.head.appendChild(gtagScript);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', CONFIG.GA_TRACKING_ID);
+        }
+
         // Apply X (Twitter) Link
         const xLinks = document.querySelectorAll('.x-link, a[href*="twitter.com"]');
         xLinks.forEach(el => el.href = CONFIG.X_URL);
