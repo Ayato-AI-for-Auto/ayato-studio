@@ -1,6 +1,6 @@
 const CONFIG = {
     // Social Media Links
-    X_URL: "https://twitter.com/_Ayator",
+    X_URL: "https://x.com/TechLong_Invest",
     GITHUB_URL: "https://github.com/Ayato-AI-for-Auto",
 
     // Contact
