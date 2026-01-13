@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Post Scorer | Ayato AI Studio</title>
+    <meta name="description"
+        content="Predict if your post will go viral. AI analyzes your text for impact, readability, and engagement hooks.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --surface: #111111;
+            --surface-hover: #1a1a1a;
+            --accent: #ff0055;
+            /* Viral Red/Pink */
+            --accent-dim: rgba(255, 0, 85, 0.1);
+            --text: #ffffff;
+            --muted: #888888;
+            --border: #333333;
+            --success: #00ffaa;
+            --warning: #ffaa00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tool-interface {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tool-interface {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .char-count {
+            text-align: right;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        button.analyze-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: transform 0.1s;
+        }
+
+        button.analyze-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Score Display */
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid var(--surface-hover);
+            margin: 0 auto 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .feedback-item.good {
+            border-left-color: var(--success);
+        }
+
+        .feedback-item.warn {
+            border-left-color: var(--warning);
+        }
+
+        .feedback-item.bad {
+            border-left-color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link">← Portal Top</a>
+            <h1>Viral Post Scorer</h1>
+            <p>Viral posts follow a formula. Let's diagnose yours.</p>
+        </header>
+
+        <div class="tool-interface">
+            <!-- INPUT -->
+            <div class="panel">
+                <h2>✍️ Post Draft</h2>
+                <textarea id="postContent" placeholder="Enter your tweet or post content here..."></textarea>
+                <div class="char-count" id="charCount">0 / 280</div>
+                <button class="analyze-btn" onclick="analyzePost()">DIAGNOSE</button>
+            </div>
+
+            <!-- RESULT -->
+            <div class="panel" id="resultPanel" style="opacity: 0.5; pointer-events: none;">
+                <h2>📊 Viral Score</h2>
+                <div class="score-circle">
+                    <span class="score-value" id="scoreValue">--</span>
+                    <span class="score-label">POINTS</span>
+                </div>
+                <ul class="feedback-list" id="feedbackList">
+                    <li class="feedback-item">Enter text and click diagnose.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Ayato AI Studio. Viral Logic Engine.
+    </footer>
+
+    <script>
+        const textarea = document.getElementById('postContent');
+        const countDisplay = document.getElementById('charCount');
+
+        textarea.addEventListener('input', () => {
+            countDisplay.innerText = `${textarea.value.length} / 280`;
+        });
+
+        function analyzePost() {
+            const text = textarea.value.trim();
+            if (!text) return;
+
+            // Activate panel
+            document.getElementById('resultPanel').style.opacity = '1';
+            document.getElementById('resultPanel').style.pointerEvents = 'auto';
+
+            let score = 0;
+            const feedback = [];
+
+            // 1. Length Check (Sweet spot: 100-240 for En)
+            const len = text.length;
+            if (len >= 100 && len <= 240) {
+                score += 30;
+                feedback.push({ type: 'good', msg: 'Length: Optimal zone (100-240 chars). Algorithm friendly.' });
+            } else if (len > 280) {
+                score += 10;
+                feedback.push({ type: 'warn', msg: 'Length: Too long for a single tweet. Consider threading.' });
+            } else {
+                score += 10;
+                feedback.push({ type: 'bad', msg: 'Length: Too short. Lacks substance to be shareable.' });
+            }
+
+            // 2. Line Breaks (Readability)
+            const lines = text.split('\n').length;
+            if (lines >= 3) {
+                score += 20;
+                feedback.push({ type: 'good', msg: 'Formatting: Good use of whitespace. Easy to read.' });
+            } else {
+                feedback.push({ type: 'bad', msg: 'Formatting: Wall of text. Add line breaks.' });
+            }
+
+            // 3. Power Words (English Triggers)
+            const powerWords = ['ALERT', 'BREAKING', 'FREE', 'Secret', 'Warning', 'How to', 'Guide', 'Revealed', 'Salary', 'Hack', 'Stop'];
+            let foundPower = 0;
+            const upperText = text.toUpperCase();
+            powerWords.forEach(w => {
+                if (upperText.includes(w.toUpperCase())) foundPower++;
+            });
+
+            if (foundPower > 0) {
+                score += 30;
+                feedback.push({ type: 'good', msg: `Hooks: Contains power words (${foundPower}). Stops the scroll.` });
+            } else {
+                feedback.push({ type: 'warn', msg: 'Hooks: Weak impact. Add words like "ALERT", "How to", or "Secret".' });
+            }
+
+            // 4. Questions/Engagement
+            if (text.includes('?')) {
+                score += 20;
+                feedback.push({ type: 'good', msg: 'Engagement: Includes a question. Drives replies.' });
+            }
+
+            // Cap Score
+            if (score > 100) score = 100;
+
+            // Render
+            animateScore(score);
+            renderFeedback(feedback);
+        }
+
+        function animateScore(target) {
+            const el = document.getElementById('scoreValue');
+            let current = 0;
+            const timer = setInterval(() => {
+                current += 2;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.innerText = current;
+
+                // Color change based on score
+                if (current < 50) el.style.color = 'var(--muted)';
+                else if (current < 80) el.style.color = 'var(--warning)';
+                else el.style.color = 'var(--accent)';
+            }, 20);
+        }
+
+        function renderFeedback(items) {
+            const list = document.getElementById('feedbackList');
+            list.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = `feedback-item ${item.type}`;
+                li.innerText = item.msg;
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+
+</html>
