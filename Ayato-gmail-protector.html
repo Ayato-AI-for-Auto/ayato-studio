@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayato Gmail Protector | Ayato Studio</title>
+    <meta name="description" content="AI(Gemini)がGmailの誤送信を防止。添付ファイルの中身やDriveリンク先までスキャンする、次世代のセキュリティ拡張機能。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-hero {
+            padding: 15rem 10% 8rem;
+            text-align: center;
+        }
+
+        .product-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-hero p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .feature-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            border-radius: 50px;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            background: var(--accent-color);
+        }
+
+        .legal-links {
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glass-background"></div>
+
+    <header class="header">
+        <div class="logo">Ayato Studio</div>
+        <nav class="nav">
+            <a href="index.html#works">Works</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-hero">
+            <h1>Ayato Gmail Protector</h1>
+            <p>メール誤送信による情報漏洩を「ゼロ」に。<br>Google Gemini 2.5 Flashを活用した、世界で最も賢いGmail誤送信防止ツール。</p>
+
+            <a href="https://chrome.google.com/webstore/detail/cicbmajpdeiganknpmmbnjfnfkhmimnc" target="_blank"
+                class="download-btn">Add to Chrome</a>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Deep Content Scan</h3>
+                    <p>メール本文だけでなく、添付ファイル（PDF, Excel, Word）やGoogle Driveリンクの中身までAIが読み取り、機密情報を検出します。</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Context Aware</h3>
+                    <p>単なるキーワードマッチングではありません。「このメールは見積書送付の文脈だが、添付ファイルが請求書になっている」といった矛盾も検知可能です。</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Private & Secure</h3>
+                    <p>認証トークンやメールデータはあなたのブラウザ内に留まります。解析はGoogle Gemini APIと直接通信し、我々のサーバーを経由しません。</p>
+                </div>
+            </div>
+
+            <div class="legal-links">
+                <a href="privacy-policy.html" style="margin-right: 2rem; opacity: 0.7;">Privacy Policy</a>
+                <a href="terms-of-service.html" style="opacity: 0.7;">Terms of Service</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Ayato Studio. Powered by Antigravity Engine.</p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
