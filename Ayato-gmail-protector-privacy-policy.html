@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Ayato Gmail Protector</title>
+    <meta name="description" content="Privacy Policy for Gmail Protector Chrome Extension.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .privacy-content {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .privacy-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .privacy-content h2 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .privacy-content p,
+        .privacy-content ul {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .privacy-content ul {
+            padding-left: 1.5rem;
+        }
+
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            margin-bottom: 2rem;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glass-background"></div>
+
+    <header class="header">
+        <div class="logo">Ayato Studio</div>
+        <nav class="nav">
+            <a href="index.html#about">About</a>
+            <a href="index.html#works">Works</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="privacy-content">
+            <h1>Privacy Policy for Ayato Gmail Protector</h1>
+            <span class="last-updated">Last Updated: January 13, 2026</span>
+
+            <p>Ayato Studio ("we," "our," or "us") operates the Gmail Protector browser extension (the "Extension").
+                This Privacy Policy explains how we collect, use, and disclose information about you when you use our
+                Extension.</p>
+
+            <h2>1. Information We Collect</h2>
+            <p>We are committed to minimizing data collection. The Extension primarily operates locally on your device.
+            </p>
+            <ul>
+                <li><strong>User Content:</strong> To provide the core functionality of detecting sensitive information,
+                    the Extension temporarily processes the content of emails you are composing, attachments, and files
+                    linked via Google Drive. This processing occurs only when you attempt to send an email or manually
+                    trigger a scan.</li>
+                <li><strong>Authentication Data:</strong> We store OAuth tokens locally in your browser to access Gmail
+                    and Google Drive API on your behalf. These tokens are never sent to our servers.</li>
+                <li><strong>Settings:</strong> Your configuration preferences (e.g., custom sensitive keywords, API
+                    keys) are stored locally in your browser using Chrome Storage API.</li>
+            </ul>
+
+            <h2>2. How We Use Information</h2>
+            <p>We use the information we collect solely for the following purposes:</p>
+            <ul>
+                <li><strong>AI Analysis:</strong> We send the User Content (email body, attachments, etc.) to the Google
+                    Gemini API to analyze it for sensitive information based on your settings. This data is not used to
+                    train Google's models (subject to Google's Enterprise API terms if you use your own Enterprise API
+                    key) and is not stored by us.</li>
+                <li><strong>Service Functionality:</strong> To block emails containing detected sensitive information
+                    and provide alerts.</li>
+            </ul>
+
+            <h2>3. Data Sharing and Disclosure</h2>
+            <p>We do not sell, trade, or otherwise transfer your personal information to outside parties. The only
+                exception is:</p>
+            <ul>
+                <li><strong>Google Gemini API:</strong> As described above, content is sent to Google's AI models for
+                    analysis. This is a critical dependency for the Extension's functionality.</li>
+            </ul>
+
+            <h2>4. Data Security</h2>
+            <p>We implement security measures to maintain the safety of your personal information. The Extension
+                communicates directly with Google's APIs (Gmail, Drive, Gemini) from your browser. We do not operate an
+                intermediate server that stores your email content.</p>
+            <p>Your Google Gemini API Key is stored locally in your browser and is never transmitted to us.</p>
+
+            <h2>5. Your Rights</h2>
+            <p>Because we do not store your data on our servers, you have full control over your data locally.</p>
+            <ul>
+                <li>You can uninstall the Extension at any time to remove all locally stored data.</li>
+                <li>You can revoke the Extension's access to your Google Account via your Google Account security
+                    settings.</li>
+            </ul>
+
+            <h2>6. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. If we make material changes, we will notify you by
+                updating the date at the top of this policy.</p>
+
+            <h2>7. Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <p>Email: <a href="mailto:contact@ayato-studio.ai"
+                    style="color: var(--accent-color);">contact@ayato-studio.ai</a></p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Ayato Studio. Powered by Antigravity Engine.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="Ayato-gmail-protector-privacy-policy.html"
+                style="opacity: 0.8; font-size: 0.8rem; margin-right: 1rem;">Privacy
+                Policy</a>
+            <a href="Ayato-gmail-protector-terms-of-service.html" style="opacity: 0.8; font-size: 0.8rem;">Terms of
+                Service</a>
+        </p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
