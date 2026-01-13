@@ -30,4 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(el);
     });
+    // --- Config Loading ---
+    const applyConfig = () => {
+        if (typeof CONFIG === 'undefined') {
+            console.warn("Config not loaded");
+            return;
+        }
+
+        // Apply X (Twitter) Link
+        const xLinks = document.querySelectorAll('.x-link, a[href*="twitter.com"]');
+        xLinks.forEach(el => el.href = CONFIG.X_URL);
+
+        // Apply Email Link
+        const emailLinks = document.querySelectorAll('.email-link, a[href^="mailto:"]');
+        emailLinks.forEach(el => el.href = `mailto:${CONFIG.EMAIL}`);
+
+        // Update CTA Text if needed (Example)
+        const ctaBtn = document.querySelector('.cta-button');
+        if (ctaBtn && CONFIG.X_URL) {
+            // Extract handle from URL for display if it's a generic link
+            // For now, keep the text static or update provided handle manually in HTML is better for design.
+            ctaBtn.href = CONFIG.X_URL;
+        }
+    };
+
+    applyConfig();
 });

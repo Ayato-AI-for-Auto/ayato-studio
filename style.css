@@ -88,8 +88,9 @@ a {
     font-size: 1.5rem;
     font-weight: 900;
     letter-spacing: -1px;
-    background: linear-gradient(90deg, #fff, var(--accent-color));
+    background: linear-gradient(45deg, #fff, #888);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -265,6 +266,7 @@ a {
     margin-bottom: 20px;
     background: linear-gradient(90deg, #fff, #aaa);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
