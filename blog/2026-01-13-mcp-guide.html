@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity MCP Server 接続ガイド | Ayato Studio</title>
+    <meta name="description" content="Google Antigravity AI エージェントに Python MCP サーバーを接続する完全ガイド。設定方法、トラブルシューティングを解説。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 5% 80px;
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 2rem;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin: 3rem 0 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content p,
+        .article-content li {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        .article-content pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .callout {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .callout.warning {
+            border-color: #f59e0b;
+        }
+
+        .callout.success {
+            border-color: #10b981;
+        }
+
+        .callout strong {
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--glass-bg);
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+    </style>
+    <script src="../config.js"></script>
+    <script src="../script.js"></script>
+</head>
+
+<body>
+    <div class="glass-background">
+        <div class="circle-glow" style="top: 10%; left: 80%;"></div>
+        <div class="circle-glow" style="top: 60%; left: 10%;"></div>
+    </div>
+
+    <header class="header">
+        <a href="../index.html" class="logo">AYATO STUDIO</a>
+        <nav class="nav">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#projects">Projects</a>
+            <a href="../index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+
+        <article>
+            <header class="article-header">
+                <h1>🚀 Antigravity MCP Server 接続ガイド</h1>
+                <p class="article-meta">2026-01-13 | Python / MCP / AI Agent</p>
+            </header>
+
+            <div class="article-content">
+                <p>Google Antigravity AI エージェントに自作の Python MCP サーバーを接続する方法を完全解説します。</p>
+
+                <h2>📋 前提条件</h2>
+                <ul>
+                    <li>Python 3.10+ がインストール済み</li>
+                    <li><code>uv</code> パッケージマネージャーがインストール済み</li>
+                    <li>仮想環境 (<code>.venv</code>) が作成済み</li>
+                    <li><code>fastmcp</code> パッケージがインストール済み</li>
+                </ul>
+
+                <h2>📁 推奨プロジェクト構造</h2>
+                <pre><code>project_root/
+├── .venv/                          # 仮想環境
+├── pyproject.toml                  # パッケージ定義
+├── my_mcp_server/
+│   ├── __init__.py                 # 必須！
+│   └── server.py                   # MCPサーバー本体
+└── another_server/
+    ├── __init__.py
+    ├── server.py
+    └── utils.py</code></pre>
+
+                <h2>🔧 Step-by-Step 設定手順</h2>
+
+                <h3>1. pyproject.toml を作成</h3>
+                <pre><code>[project]
+name = "my-project"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp",
+    "numpy",
+    # その他の依存関係
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["my_mcp_server*", "another_server*"]</code></pre>
+                <div class="callout">
+                    <strong>重要:</strong> <code>[tool.setuptools.packages.find]</code> を使用することで、サブパッケージが自動検出されます。
+                </div>
+
+                <h3>2. __init__.py を各ディレクトリに配置</h3>
+                <p>空ファイルでOK。これがないとPythonはディレクトリをパッケージとして認識しません。</p>
+                <pre><code># PowerShell
+New-Item -ItemType File -Path my_mcp_server/__init__.py</code></pre>
+
+                <h3>3. Editable モードでインストール</h3>
+                <pre><code>cd project_root
+uv pip install -e .</code></pre>
+                <div class="callout success">
+                    <strong>-e (Editable) の意味:</strong> ソースコードへのシンボリックリンクを作成。コードを編集すると即座に反映される。開発時は必須。
+                </div>
+
+                <h3>4. mcp_config.json を設定</h3>
+                <p>ファイルパス: <code>C:\Users\{USER}\.gemini\antigravity\mcp_config.json</code></p>
+                <pre><code>{
+  "mcpServers": {
+    "my-server": {
+      "command": "C:/path/to/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "my_mcp_server.server"
+      ],
+      "cwd": "C:/path/to/project_root",
+      "env": {
+        "API_KEY": "your-api-key"
+      }
+    }
+  }
+}</code></pre>
+
+                <h3>5. Antigravity で接続確認</h3>
+                <p>MCP管理画面 → サーバー名 → Configure → "Enabled" になれば成功！</p>
+
+                <h2>⚠️ よくあるエラーと解決策</h2>
+                <table>
+                    <tr>
+                        <th>エラー</th>
+                        <th>原因</th>
+                        <th>解決策</th>
+                    </tr>
+                    <tr>
+                        <td><code>ImportError: attempted relative import...</code></td>
+                        <td>スクリプトとして直接実行</td>
+                        <td><code>args</code> を <code>["-m", "package.module"]</code> に変更</td>
+                    </tr>
+                    <tr>
+                        <td><code>ModuleNotFoundError</code></td>
+                        <td>パッケージ未インストール</td>
+                        <td><code>uv pip install -e .</code> を実行</td>
+                    </tr>
+                    <tr>
+                        <td><code>sqlite3.OperationalError</code></td>
+                        <td>DBディレクトリが存在しない</td>
+                        <td><code>os.makedirs(dir, exist_ok=True)</code> を追加</td>
+                    </tr>
+                    <tr>
+                        <td><code>No such file or directory</code></td>
+                        <td>パスが間違っている</td>
+                        <td>絶対パス + <code>cwd</code> を設定</td>
+                    </tr>
+                </table>
+
+                <h2>📝 mcp_config.json 設定キー一覧</h2>
+                <table>
+                    <tr>
+                        <th>キー</th>
+                        <th>説明</th>
+                        <th>例</th>
+                    </tr>
+                    <tr>
+                        <td><code>command</code></td>
+                        <td>Python実行ファイルのフルパス</td>
+                        <td><code>"C:/.venv/Scripts/python.exe"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>args</code></td>
+                        <td>コマンドライン引数</td>
+                        <td><code>["-m", "package.server"]</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>cwd</code></td>
+                        <td>作業ディレクトリ (必須)</td>
+                        <td><code>"C:/project_root"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>env</code></td>
+                        <td>環境変数</td>
+                        <td><code>{"KEY": "value"}</code></td>
+                    </tr>
+                </table>
+
+                <h2>✅ ベストプラクティス</h2>
+                <div class="callout success">
+                    <ul>
+                        <li><strong>パスはスラッシュ (<code>/</code>) で統一</strong> — JSONでのエスケープ問題を回避</li>
+                        <li><strong><code>-m</code> でモジュール実行</strong> — 相対インポートが正しく動作</li>
+                        <li><strong><code>cwd</code> を必ず設定</strong> — パッケージルートを明示</li>
+                        <li><strong><code>uv pip install -e .</code></strong> — 開発時は必須</li>
+                        <li><strong>__init__.py を忘れずに</strong> — 全サブディレクトリに配置</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Ayato Studio. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
